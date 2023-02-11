@@ -1,14 +1,11 @@
 public class IfElseStatementTheme {
 
-    public static void main (String[] args) {
-
+    public static void main(String[] args) {
         System.out.println("1. Перевод псевдокода на язык Java:");
 
         int age = 27;
         float height = 1.70f;
-        char mGender = 'm';
-        char fGender = 'f';
-        char avaliableGender = fGender;
+        boolean genderM = false;
         String name = "Max";
 
         if (age > 20) {
@@ -17,10 +14,10 @@ public class IfElseStatementTheme {
             System.out.println("Your age has NOT passed!");
         }
 
-        if (avaliableGender != mGender) {
-            System.out.println("Available only for Female.");
+        if (genderM) {
+            System.out.println("Available only for Male.");
         } else {
-            System.out.println("Enter available.");
+            System.out.println("Available only for Female.");
         }
 
         if (height < 1.80) {
@@ -43,10 +40,10 @@ public class IfElseStatementTheme {
         int num1 = 10;
         int num2 = 15;
 
-        if (num1 < num2) {
+        if (num1 == num2) {
+            System.out.println("The numbers are equal" );
+        } else if (num1 < num2) {
             System.out.println(num2 + " more than " + num1 + ", " + "number " + num2 + " = max");
-        } else if (num1 == num2) {
-            System.out.println("The numbers are equal");
         } else {
             System.out.println(num1 + " more than " + num2 + ", " + "number " + num1 + " = max");
         }
@@ -74,32 +71,35 @@ public class IfElseStatementTheme {
 
         int num3 = 123;
         int num4 = 223;
+        boolean hundredsEqual = num3 / 100 == num4 / 100;
+        boolean tensEqual = num3 % 100 / 10 == num4 % 100 / 10;
+        boolean unitsEqual = num3 % 10 == num4 % 10;
 
         System.out.println("initial numbers: " + num3 + ", " + num4);
 
-        if (num3 / 100 == num4 / 100 | num3 % 100 / 10 == num4 % 100 / 10 | num3 % 10 == num4 % 10) {
-            if (num3 / 100 == num4 / 100) {
+        if (hundredsEqual || tensEqual || unitsEqual) {
+            if (hundredsEqual) {
                 System.out.println("Разряд сотен равны " + num3 / 100 + " : " + num4 / 100);
             }
-            if (num3 % 100 / 10 == num4 % 100 / 10) {
+            if (tensEqual) {
                 System.out.println("Разряд десяток равен " + num3 % 100 / 10 + " : " + num4 % 100 / 10);
             }
-            if (num3 % 10 == num4 % 10) {
+            if (unitsEqual) {
                 System.out.println("Разряд единиц равен " + num3 % 10 + " : " + num4 % 10);
             }
         } else {
-                System.out.println("Don't have the same numbers");
-            }
+            System.out.println("Don't have the same numbers");
+        }
 
         System.out.println("\n5. Определение символа по его коду:");
 
         char ch = '\u0057';
 
-        if (ch >= 48 & ch <= 57) {
+        if (ch >= '0' & ch <= '9') {
             System.out.println("This is number: " + ch);
-        } else if (ch >= 65 & ch <= 90) {
+        } else if (ch >= 'A' & ch <= 'Z') {
             System.out.println("This is letter Uppercase: " + ch);
-        } else if (ch >= 97 & ch <= 122) {
+        } else if (ch >= 'a' & ch <= 'z') {
             System.out.println("This is Letter Lowercase: " + ch);
         } else {
             System.out.println("This is another symbol");
@@ -108,82 +108,54 @@ public class IfElseStatementTheme {
         System.out.println("\n6. Подсчет суммы вклада и начисленных банком %:");
 
         float deposit = 300000;
+        float profit = 0;
 
         if (deposit > 0 & deposit < 100000) {
-            float profitTo_100k = (deposit / 100 * 5);
-            float depositProfitTo_100k = deposit + profitTo_100k;
-            System.out.println("Deposit amount: " + deposit + " RUB");
-            System.out.println("Profit net: " + profitTo_100k + " RUB");
-            System.out.println("All amount: " + depositProfitTo_100k + " RUB");
+            profit = (deposit / 100 * 5);
         } else if (deposit >= 100000 & deposit < 300000) {
-            float profit_100k_300k = (deposit / 100 * 7);
-            float depositProfit100k_300k = deposit + profit_100k_300k;
-            System.out.println("Deposit amount: " + deposit + " RUB");
-            System.out.println("Profit net: " + profit_100k_300k + " RUB");
-            System.out.println("All amount: " + depositProfit100k_300k + " RUB");
+            profit = (deposit / 100 * 7);
         } else if (deposit >= 300000) {
-            float profitFrom_300k = (deposit / 100 * 10);
-            float depositProfit_300k = deposit + profitFrom_300k;
-            System.out.println("Deposit amount: " + deposit + " RUB");
-            System.out.println("Profit net: " + profitFrom_300k + " RUB");
-            System.out.println("All amount: " + depositProfit_300k + " RUB");
+            profit = (deposit / 100 * 10);
         } else {
             System.out.println("Your deposit can't be 0");
         }
 
+        float depositWithProfit = deposit + profit;
+
+        System.out.println("Deposit amount: " + deposit + " RUB");
+        System.out.println("Profit net: " + profit + " RUB");
+        System.out.println("All amount: " + depositWithProfit + " RUB");
+
         System.out.println("\n7. Определение оценки по предметам:");
 
-        float history = 59;
-        float programming = 91;
-        float historyAverageGRating = 0;
-        float programmingAverageGRating = 0;
-        float averageScore = (history + programming) / 2;
+        float historyLesson = 59;
+        float programmingLesson = 91;
+        float historyGrade = 0;
+        float programmingGrade = 0;
 
-        if (history <= 60 | programming <= 60) {
-            if (history <= 60) {
-                System.out.println("2 " + "history");
-                historyAverageGRating = 2;
-            }
-            if (programming <= 60) {
-                System.out.println("2 " + "programming");
-                programmingAverageGRating = 2;
-            } 
-        } 
-        if (history > 60 & history <= 73 | programming > 60 & programming <= 73) {
-            if (history > 60 & history <= 73) {
-                System.out.println("3 " + "history");
-                historyAverageGRating = 3;
-            }
-            if (programming > 60 & programming <= 73) {
-                System.out.println("3 " + "programming");
-                programmingAverageGRating = 3;
-            } 
-        } 
-        if (history > 73 & history <= 91 | programming > 73 & programming <= 91 ) {
-            if (history > 73 & history <= 91) {
-                System.out.println("4 " + "history");
-                historyAverageGRating = 4;
-            }
-            if (programming > 73 & programming <= 91) {
-                System.out.println("4 " + "programming");
-                programmingAverageGRating = 4;
-            }
-        } 
-        if (history > 91 | programming > 91 ) {
-            if (history > 91) {
-                System.out.println("5 " + "history");
-                historyAverageGRating = 5;
-            }
-            if (programming > 91) {
-                System.out.println("5 " + "programming");
-                programmingAverageGRating = 5;
-            }
+        if (historyLesson > 0 & historyLesson <= 60) {
+            historyGrade = 2;
+        } else if (historyLesson > 60 & historyLesson <= 73) {
+            historyGrade = 3;
+        } else if (historyLesson > 73 & historyLesson <= 91) {
+            historyGrade = 4;
         }
 
-        float averageRating = (historyAverageGRating + programmingAverageGRating) / 2;
+        if (programmingLesson > 0 & programmingLesson <= 60) {
+            programmingGrade = 2;
+        } else if (programmingLesson > 60 & programmingLesson <= 73) {
+            programmingGrade = 3;
+        } else if (programmingLesson > 73 & programmingLesson <= 91) {
+            programmingGrade = 4;
+        }
 
-        System.out.println("Average rating of subjects: " + averageRating);
-        System.out.println("Average score (%) of subjects: " + averageScore + "%");
+        float averageGrade = (historyGrade + programmingGrade) / 2;
+        float averagePercent = (historyLesson + programmingLesson) / 2;
+
+        System.out.println(historyGrade + " history lesson grade");
+        System.out.println(programmingGrade + " programming lesson grade");
+        System.out.println("Average grade of subjects: " + averageGrade);
+        System.out.println("Average percent of subjects: " + averagePercent + "%");
 
         System.out.println("\n8. Расчет прибыли за год:");
 
@@ -191,14 +163,13 @@ public class IfElseStatementTheme {
         int sellMonth = 13000;
         int priceGoodsMonth = 9000;
 
-        int rentYear = rentMonth * 12;
-        int sellYear = sellMonth * 12;
-        int priceGoodsYear = priceGoodsMonth * 12;
+        int profitPureYear = (sellMonth * 12) - ((rentMonth * 12) + (priceGoodsMonth * 12));
 
-        int expensesYear = rentYear + priceGoodsYear;
-        int profitPureYear = sellYear - expensesYear;
-
-        System.out.println("Profit of year: " + profitPureYear + " RUB");
+        if (profitPureYear > 0) {
+            System.out.println("Profit of the year: " + "+" + profitPureYear + " RUB");
+        } else {
+            System.out.println("Profit of the year: " + profitPureYear + " RUB");
+        }
 
         System.out.println("\n9. Подсчет количества банкнот:");
 
