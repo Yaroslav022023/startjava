@@ -84,7 +84,7 @@ public class IfElseStatementTheme {
             }
             if (equalTens) {
                 System.out.println("Разряд десяток равен " + num3 % 100 / 10 + " : "
-                + num4 % 100 / 10);
+                        + num4 % 100 / 10);
             }
             if (equalOnes) {
                 System.out.println("Разряд единиц равен " + num3 % 10 + " : " + num4 % 10);
@@ -97,11 +97,11 @@ public class IfElseStatementTheme {
 
         char ch = '\u0057';
 
-        if (ch >= '0' & ch <= '9') {
+        if (ch >= '0' && ch <= '9') {
             System.out.println("This is number: " + ch);
-        } else if (ch >= 'A' & ch <= 'Z') {
+        } else if (ch >= 'A' && ch <= 'Z') {
             System.out.println("This is letter Uppercase: " + ch);
-        } else if (ch >= 'a' & ch <= 'z') {
+        } else if (ch >= 'a' && ch <= 'z') {
             System.out.println("This is Letter Lowercase: " + ch);
         } else {
             System.out.println("This is another symbol");
@@ -134,17 +134,17 @@ public class IfElseStatementTheme {
         float historyGrade = 2;
         float programmingGrade = 2;
 
-        if (historyPercent > 60 & historyPercent <= 73) {
+        if (historyPercent > 60 && historyPercent <= 73) {
             historyGrade = 3;
-        } else if (historyPercent > 73 & historyPercent <= 91) {
+        } else if (historyPercent > 73 && historyPercent <= 91) {
             historyGrade = 4;
         } else if (historyPercent > 91) {
             historyGrade = 5;
         }
 
-        if (programmingPercent > 60 & programmingPercent <= 73) {
+        if (programmingPercent > 60 && programmingPercent <= 73) {
             programmingGrade = 3;
-        } else if (programmingPercent > 73 & programmingPercent <= 91) {
+        } else if (programmingPercent > 73 && programmingPercent <= 91) {
             programmingGrade = 4;
         } else if (programmingPercent > 91) {
             programmingGrade = 5;
@@ -175,65 +175,36 @@ public class IfElseStatementTheme {
         System.out.println("\n9. Подсчет количества банкнот:");
 
         int withdrawalSum = 567;
-        int banknote100 = 100;
-        int banknote10 = 10;
-        int banknote1 = 1;
 
         int amountBanknote100 = 10;
         int amountBanknote10 = 5;
         int amountBanknote1 = 50;
 
-        int amountWithdrawalBanknote100 = 0;
-        int amountWithdrawalBanknote10 = 0;
+        int withdrawal100 = withdrawalSum / 100;
+        int withdrawal10 = withdrawalSum / 10 % 10;
+        int withdrawal1 = withdrawalSum % 10;
 
-        int allWithdrawal100 = 0;
-        int allWithdrawal10 = 0;
-        int allWithdrawal1 = 0;
-        int totalAmountToWithdrawal = 0;
-
-        int amountSum = banknote100 * amountBanknote100 + banknote10 * amountBanknote10 
-        + banknote1 * amountBanknote1;
-
-        if (withdrawalSum <= amountSum & withdrawalSum > 0) {
-            if (withdrawalSum / banknote100 <= amountBanknote100) {
-                amountWithdrawalBanknote100 = withdrawalSum / banknote100;
-                allWithdrawal100 = banknote100 * amountWithdrawalBanknote100;
-                withdrawalSum -= allWithdrawal100;
-            } else {
-                amountWithdrawalBanknote100 = amountBanknote100;
-                allWithdrawal100 = amountBanknote100 * banknote100;
-                withdrawalSum -= allWithdrawal100;
-            }
-            if (withdrawalSum % banknote100 / banknote10 <= amountBanknote10
-                & withdrawalSum % banknote100 / banknote10 != 0 || withdrawalSum % banknote10 != 0
-                && withdrawalSum <= amountBanknote10 || withdrawalSum == 0
-                & withdrawalSum <= amountBanknote10) {
-
-                amountWithdrawalBanknote10 = withdrawalSum % banknote100 / banknote10;
-                allWithdrawal10 = banknote10 * amountWithdrawalBanknote10;
-                withdrawalSum -= allWithdrawal10;
-            } else {
-                amountWithdrawalBanknote10 = amountBanknote10;
-                allWithdrawal10 = amountBanknote10 * banknote10;
-                withdrawalSum -= allWithdrawal10;
-            }
-            if (withdrawalSum <= amountBanknote1 * banknote1) {
-                allWithdrawal1 = withdrawalSum;
-                totalAmountToWithdrawal = allWithdrawal100 + allWithdrawal10 + allWithdrawal1;
-            }
-        } else if (withdrawalSum <= 0) {
-            System.out.println("Сумма не может быть 0");
-        } else {
-            System.out.print("В банкомате недостаточно денег для снятия вашей суммы. ");
-            System.out.println("Доступно для снятия: " + amountSum + " usd");
+        if (withdrawal100 > amountBanknote100) {
+            withdrawal10 += (withdrawal100 - amountBanknote100) * 10;
+            withdrawal100 = amountBanknote100;
         }
-
-        System.out.println("Количество банкнот по 100: " + amountWithdrawalBanknote100);
-        System.out.println("Всего снимаем по 100 usd: " + allWithdrawal100);
-        System.out.println("Количество банкнот по 10: " + amountWithdrawalBanknote10);
-        System.out.println("Всего снимаем по 10 usd: " + allWithdrawal10);
-        System.out.println("Количество банкнот по 1: " + allWithdrawal1);
-        System.out.println("Всего снимаем по 1 usd: " + allWithdrawal1);
-        System.out.println("Общая сумма к снятию: " + totalAmountToWithdrawal + " usd");
+        if (withdrawal10 > amountBanknote10) {
+            withdrawal1 += (withdrawal10 - amountBanknote10) * 10;
+            withdrawal10 = amountBanknote10;
+        }
+        if (withdrawal1 > amountBanknote1) {
+            System.out.println("Количества банкнот не хватает для снятия.");
+        } else if (withdrawal1 <= 0) {
+            System.out.println("Количество банкнот не может быть 0.");
+        } else {
+            System.out.println("Количество банкнот по 100: " + withdrawal100);
+        System.out.println("Всего снимаем по 100 usd: " + withdrawal100 * 100 );
+        System.out.println("Количество банкнот по 10: " + withdrawal10);
+        System.out.println("Всего снимаем по 10 usd: " + withdrawal10 * 10);
+        System.out.println("Количество банкнот по 1: " + withdrawal1);
+        System.out.println("Всего снимаем по 1 usd: " + withdrawal1);
+        System.out.println("Общая сумма к снятию: " + (withdrawal100 * 100 + withdrawal10 * 10 
+                + withdrawal1));
+        }
     }
 }
