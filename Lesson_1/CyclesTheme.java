@@ -3,176 +3,158 @@ public class CyclesTheme {
     public static void main(String[] args) {
         System.out.println("1. Подсчет суммы четных и нечетных чисел:");
 
-        int i = -10;
-        int sum = 0;
+        int counter = -10;
         int sumEven = 0;
         int sumOdd = 0;
 
         do {
-            sum = i;
-            if (sum % 2 == 0) {
-                sumEven += sum;
+            if (counter % 2 == 0) {
+                sumEven += counter;
             } else {
-                sumOdd += sum;
+                sumOdd += counter;
             }
-            i++;
-        } while (i <= 21);
+            counter++;
+        } while (counter <= 21);
         System.out.println("В промежутке [-10, 21] сумма четных чисел = " +  sumEven +  " а нечетных = "
                 + sumOdd);
 
         System.out.println("\n2. Вывод чисел в интервале (min и max) в порядке убывания:");
 
-        int num = -1;
-        int num1 = 5;
-        int num2 = 10;
+        int min = 5; 
+        int num = 10; 
+        int max = -1; 
+        int memoryDigit = 0;
 
-        int min = 0;
-        int max = 0;
+        if (min > num) {
+            memoryDigit = num;
+            num = min;
+            min = memoryDigit;
+        }
 
-        if (num > num1 && num > num2) {
+        if (num > max) {
+            memoryDigit = max;
             max = num;
-        } else if (num < num1 && num < num2) {
-            min = num;
+            num = memoryDigit;
         }
 
-        if (num1 > num && num1 > num2) {
-            max = num1;
-        } else if (num1 < num && num1 < num2) {
-            min = num1;
+        if (min > num) {
+            memoryDigit = num;
+            num = min;
+            min = memoryDigit;
         }
 
-        if (num2 > num && num2 > num1) {
-            max = num2;
-        } else if (num2 < num && num2 < num1) {
-            min = num2;
-        }
-
-        for (int j = 0; j < 1; j++) {
-            if (max > num && num > min) {
-                System.out.println(max + " " + num + " " + min);
-            } else if (max > num1 && num1 > min) {
-                System.out.println(max + " " + num1 + " " + min);
-            } else if (max > num2 && num2 > min) {
-                System.out.println(max + " " + num2 + " " + min);
-            }
+        for (int i = max - 1; i > min; i--) {
+            System.out.print(i + " ");
         }
 
         System.out.println("\n3. Вывод реверсивного числа и суммы его цифр:");
 
-        int number = 1234;
-        int revers = 0;
-        int sumNumbers = 0;
+        int num6 = 1234;
+        int sumDigits = 0;
 
-        while (number != 0) {
-            sumNumbers = sumNumbers + number % 10;
-            revers = revers * 10 + (number % 10);
-            number /= 10;
+        while (num6 != 0) {
+            sumDigits = sumDigits + num6 % 10;
+            System.out.print(num6 % 10);
+            num6 /= 10;
         }
-        System.out.println(revers);
-        System.out.println(sumNumbers);
+        System.out.println("\n" + sumDigits);
 
         System.out.println("\n4. Вывод чисел на консоль в несколько строк:");
 
-        int memoryCycle = 0;
+        int amountCycles = 0;
 
-        for (int k = 1; k < 24; k += 2) {
-            System.out.printf("%3d", k);
-            memoryCycle++;
+        for (int i = 1; i < 24; i += 2) {
+            System.out.printf("%3d", i);
+            amountCycles++;
 
-            if (memoryCycle % 5 == 0) {
-                System.out.print("\n");
+            if (amountCycles % 5 == 0) {
+                System.out.println();
             }
         }
 
-        while (memoryCycle % 5 != 0) {
+        while (amountCycles % 5 != 0) {
             System.out.printf("%3d", 0);
-            memoryCycle++;
+            amountCycles++;
         }
 
         System.out.println("\n\n5. Проверка количества двоек на четность/нечетность:");
 
-        int x = 3242592;
-        int amount2 = 0;
+        int num7 = 3242592;
+        int countTwos = 0;
 
-        while (x > 0) {
-            if (x % 10 == 2) {
-                amount2++;
+        while (num7 > 0) {
+            if (num7 % 10 == 2) {
+                countTwos++;
             }
-            x /= 10;
+            num7 /= 10;
         }
 
-        if (amount2 % 2 == 0) {
-            System.out.println("число " + 3242592 + " содержит " + amount2 
+        if (countTwos % 2 == 0) {
+            System.out.println("число " + 3242592 + " содержит " + countTwos 
                     + " (четное) количество двоек.");
-        } else if (amount2 % 2 != 0 ) {
-            System.out.println("число " + 3242592 + " содержит " + amount2 
+        } else if (countTwos % 2 != 0 ) {
+            System.out.println("число " + 3242592 + " содержит " + countTwos 
                     + " (нечетное) количество двоек.");
         }
 
         System.out.println("\n6. Отображение фигур в консоли:");
 
-        char asterisk = '*';
-        char hash = '#';
-        char dollar = '$';
-
-        for (int w = 0; w < 5; w++) {
-            for (int e = 0; e < 10; e++) {
-                System.out.print(asterisk);
+        for (int i = 0; i < 5; i++) {
+            for (int j = 0; j < 10; j++) {
+                System.out.print('*');
             }
-            System.out.println("");
+            System.out.println();
         }
 
-        System.out.println("");
-        int externalLimit = 5;
-        int insideLimit = 5;
-        int cycles = 5;
+        System.out.println();
 
-        while (externalLimit > 0) {
-            while (insideLimit > 0) {
-                System.out.print(hash);
-                insideLimit--;
+        int lines = 5;
+        int symbols = 5;
+        int reducingSymbols = 5;
+
+        while (lines > 0) {
+            while (symbols > 0) {
+                System.out.print('#');
+                symbols--;
             }
-            System.out.println("");
-            externalLimit--;
-            insideLimit = cycles - 1;
-            cycles--;
+            System.out.println();
+            lines--;
+            symbols = reducingSymbols - 1;
+            reducingSymbols--;
         }
 
-        System.out.println("");
-        int externalLimit2 = 5;
-        int insideLimit2 = 1;
+        System.out.println();
+
+        int line = 5;
+        int amountSymbols = 1;
 
         do {
             do {
-                System.out.print(dollar);
-                insideLimit2--; 
-            } while (insideLimit2 > 0);
+                System.out.print('$');
+                amountSymbols--; 
+            } while (amountSymbols > 0);
 
-            System.out.println("");
-            externalLimit2--;
+            System.out.println();
+            line--;
 
-            if (externalLimit2 == 4 || externalLimit2 == 2) {
-                insideLimit2 += 2;
-            } else if (externalLimit2 == 3) {
-                insideLimit2 += 3;
+            if (line == 4 || line == 2) {
+                amountSymbols += 2;
+            } else if (line == 3) {
+                amountSymbols += 3;
             } else {
-                insideLimit2 += 1;
+                amountSymbols += 1;
             }
-        } while (externalLimit2 > 0);
+        } while (line > 0);
 
         System.out.println("\n7. Отображение ASCII-символов:");
 
         System.out.println("Dec " + " Char");
 
-        for (int m = 1; m <= 122; m++) {
-
-            if (m % 2 != 0 && m <= 47) {
-            char ch = (char) m;
-            System.out.printf("%3d %3s%n", m, ch);
-
-            } else if (m % 2 == 0 && m >= 98 && m <= 122) {
-                char chh = (char) m;
-                System.out.printf("%3d %3s%n", m, chh);
+        for (int i = 1; i <= 122; i++) {
+            if (i <= 47 && i % 2 != 0) {
+            System.out.printf("%3d %3s%n", i, (char) i);
+            } else if (i >= 98 && i <= 122 && i % 2 == 0) {
+                System.out.printf("%3d %3s%n", i, (char) i);
             }
         }
 
@@ -196,27 +178,27 @@ public class CyclesTheme {
 
         int num4 = 4236135;
         int num5 = num4; 
-        int numRevers = 0;
+        int num5Revers = 0;
 
         int sumLast3 = 0;
         int sumFirst3 = 0;
-        int memoryCycl = 0;
+        int amountCycle = 0;
 
-        while (memoryCycl != 3) {
+        while (amountCycle != 3) {
             sumLast3 += num5 % 10;
             num5 /= 10;
-            memoryCycl++;
+            amountCycle++;
         }
 
         while (num5 != 0 ) {
-            numRevers = numRevers * 10 + num5 % 10;
+            num5Revers = num5Revers * 10 + num5 % 10;
             num5 /= 10;
         }
 
-        while (memoryCycl != 6) {
-            sumFirst3 += numRevers % 10;
-            numRevers /= 10;
-            memoryCycl++;
+        while (amountCycle != 6) {
+            sumFirst3 += num5Revers % 10;
+            num5Revers /= 10;
+            amountCycle++;
         }
 
         if (sumLast3 == sumFirst3) {
@@ -229,27 +211,27 @@ public class CyclesTheme {
 
         System.out.println("\n10. Вывод таблицы умножения Пифагора:");
 
-        for (int f = 1; f <= 9; f++) {
-            if (f == 1) {
+        for (int i = 1; i <= 9; i++) {
+            if (i == 1) {
                 System.out.printf("%5s", "│");
             } else {
-                System.out.printf("%3d %1s", f, "│");
+                System.out.printf("%3d %1s", i, "│");
             }
 
-            for (int g = 2; g <= 9; g++) {
-                System.out.printf("%3d", f * g);
+            for (int j = 2; j <= 9; j++) {
+                System.out.printf("%3d", i * j);
             }
 
-            if (f == 1) {
-                System.out.println("");
-                for (int q = 0; q <= 13; q++) {
+            if (i == 1) {
+                System.out.println();
+                for (int j = 0; j <= 13; j++) {
                     System.out.print("——");
-                        if (q == 1) {
+                        if (j == 1) {
                             System.out.print("│");
                         }
                 }
             }
-            System.out.println("");
+            System.out.println();
         }
     }
 }
