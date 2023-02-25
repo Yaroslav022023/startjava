@@ -20,27 +20,25 @@ public class CyclesTheme {
 
         System.out.println("\n2. Вывод чисел в интервале (min и max) в порядке убывания:");
 
-        int min = 5;
-        int mid = 10;
-        int max = -1;
-        int temp = 0;
+        int num1 = 5;
+        int num2 = 10;
+        int num3 = -1;
 
-        if (min > mid) {
-            temp = mid;
-            mid = min;
-            min = temp;
+        int min = 0;
+        int max = 0;
+
+        if (num1 > num2) {
+            max = num1;
+            min = num2;
+        } else {
+            max = num2;
+            min = num1;
         }
 
-        if (mid > max) {
-            temp = max;
-            max = mid;
-            mid = temp;
-        }
-
-        if (min > mid) {
-            temp = mid;
-            mid = min;
-            min = temp;
+        if (num3 > max) {
+            max = num3;
+        } else if (num3 < min) {
+            min = num3;
         }
 
         for (int i = max - 1; i > min; i--) {
@@ -49,39 +47,39 @@ public class CyclesTheme {
 
         System.out.println("\n\n3. Вывод реверсивного числа и суммы его цифр:");
 
-        int reverseNumber = 1234;
+        int num4 = 1234;
         int sumDigits = 0;
 
-        while (reverseNumber != 0) {
-            int ones = reverseNumber % 10;
-            sumDigits += ones;
-            System.out.print(ones);
-            reverseNumber /= 10;
+        while (num4 > 0) {
+            int remainder = num4 % 10;
+            sumDigits += remainder;
+            System.out.print(remainder);
+            num4 /= 10;
         }
         System.out.println("\n" + sumDigits);
 
         System.out.println("\n4. Вывод чисел на консоль в несколько строк:");
 
-        int amountLines = 0;
+        int amountDigitsInLine = 0;
 
         for (int i = 1; i < 24; i += 2) {
             System.out.printf("%3d", i);
-            amountLines++;
+            amountDigitsInLine++;
 
-            if (amountLines % 5 == 0) {
+            if (amountDigitsInLine % 5 == 0) {
                 System.out.println();
             }
         }
 
-        while (amountLines % 5 != 0) {
+        while (amountDigitsInLine % 5 != 0) {
             System.out.printf("%3d", 0);
-            amountLines++;
+            amountDigitsInLine++;
         }
 
         System.out.println("\n\n5. Проверка количества двоек на четность/нечетность:");
 
-        int num = 3242592;
-        int copyNum = num;
+        int num5 = 3242592;
+        int copyNum = num5;
         int countTwos = 0;
 
         while (copyNum > 0) {
@@ -92,10 +90,10 @@ public class CyclesTheme {
         }
 
         if (countTwos % 2 == 0) {
-            System.out.println("число " + num + " содержит " + countTwos 
+            System.out.println("число " + num5 + " содержит " + countTwos 
                     + " (четное) количество двоек.");
         } else {
-            System.out.println("число " + num + " содержит " + countTwos 
+            System.out.println("число " + num5 + " содержит " + countTwos 
                     + " (нечетное) количество двоек.");
         }
 
@@ -111,40 +109,38 @@ public class CyclesTheme {
         System.out.println();
 
         int lines = 5;
-        int hashSymbols = 5;
-        int amountHashSymbols = 5;
+        int amountSymbolsInLine = 5;
 
         while (lines > 0) {
-            while (hashSymbols > 0) {
+            while (amountSymbolsInLine > 0) {
                 System.out.print('#');
-                hashSymbols--;
+                amountSymbolsInLine--;
             }
             System.out.println();
             lines--;
-            hashSymbols = amountHashSymbols - 1;
-            amountHashSymbols--;
+            amountSymbolsInLine = lines;
         }
 
         System.out.println();
 
         lines = 5;
-        int dollarSymbols = 1;
+        amountSymbolsInLine = 1;
 
         do {
             do {
                 System.out.print('$');
-                dollarSymbols--; 
-            } while (dollarSymbols > 0);
+                amountSymbolsInLine--; 
+            } while (amountSymbolsInLine > 0);
 
             System.out.println();
             lines--;
 
             if (lines == 4 || lines == 2) {
-                dollarSymbols += 2;
+                amountSymbolsInLine += 2;
             } else if (lines == 3) {
-                dollarSymbols += 3;
+                amountSymbolsInLine += 3;
             } else {
-                dollarSymbols += 1;
+                amountSymbolsInLine += 1;
             }
         } while (lines > 0);
 
@@ -181,26 +177,24 @@ public class CyclesTheme {
         int luckyNum = 423135;
         int copyLuckyNum = luckyNum;
 
-        int sumRight3 = 0;
-        int sumLeft3 = 0;
+        int sumRightHalf = 0;
+        int sumLeftHalf = 0;
         int amountDigits = 0;
 
         while (amountDigits < 6) {
             if (amountDigits < 3) {
-                sumRight3 += copyLuckyNum % 10;
-                copyLuckyNum /= 10;
-                amountDigits++;
+                sumRightHalf += copyLuckyNum % 10;
             } else {
-                sumLeft3 += copyLuckyNum % 10;
-                copyLuckyNum /= 10;
-                amountDigits++;
+                sumLeftHalf += copyLuckyNum % 10;
             }
+            copyLuckyNum /= 10;
+            amountDigits++;
         }
 
-        if (sumRight3 == sumLeft3) {
-            System.out.println("Сумма первых трех цифр = " + sumLeft3 + "\n" 
-                    + "Сумма последних трех цифр = " + sumRight3 + "\n" + "Число " + luckyNum 
-                            + " - является счастливым.");
+        if (sumRightHalf == sumLeftHalf) {
+            System.out.println("Сумма первых трех цифр = " + sumLeftHalf + "\n" 
+                    + "Сумма последних трех цифр = " + sumRightHalf + "\n" + "Число " + luckyNum 
+                    + " - является счастливым.");
         } else {
             System.out.println("Число " + luckyNum + " - не является счастливым.");
         }
