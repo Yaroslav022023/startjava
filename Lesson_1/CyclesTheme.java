@@ -20,24 +20,22 @@ public class CyclesTheme {
 
         System.out.println("\n2. Вывод чисел в интервале (min и max) в порядке убывания:");
 
-        int num1 = 5;
+        int num1 = -1;
         int num2 = 10;
-        int num3 = -1;
+        int num3 = 5;
+        int min = num1;
+        int max = num2;
 
-        int min = 0;
-        int max = 0;
-
-        if (num1 > num2) {
+        if (num1 > max) {
             max = num1;
-            min = num2;
-        } else {
-            max = num2;
-            min = num1;
-        }
-
+        } 
         if (num3 > max) {
             max = num3;
-        } else if (num3 < min) {
+        }
+        if (num2 < min) {
+            min = num2;
+        }
+        if (num3 < min) {
             min = num3;
         }
 
