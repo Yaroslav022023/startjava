@@ -46,15 +46,15 @@ public class CyclesTheme {
         System.out.println("\n\n3. Вывод реверсивного числа и суммы его цифр:");
 
         int num4 = 1234;
-        int sumDigits = 0;
+        int sumRemainders = 0;
 
         while (num4 > 0) {
             int remainder = num4 % 10;
-            sumDigits += remainder;
+            sumRemainders += remainder;
             System.out.print(remainder);
             num4 /= 10;
         }
-        System.out.println("\n" + sumDigits);
+        System.out.println("\n" + sumRemainders);
 
         System.out.println("\n4. Вывод чисел на консоль в несколько строк:");
 
