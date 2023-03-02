@@ -19,7 +19,7 @@ public class WolfTest {
         wolf1.walk();
         wolf1.sit();
         wolf1.run();
-        wolf1.voice();
+        wolf1.howl();
         wolf1.hunt();
     }
 }
