@@ -19,7 +19,14 @@ public class Player {
         if (num > 0 && num <=100) {
             this.num = num;
         } else {
-            System.out.println("Введите число 1-100: ");
+            this.num = 0;
+            System.out.println("Введите число 1-100");
+        }
+    }
+
+    void setNum0(int num) {
+        if (num == 0) {
+            this.num = num;
         }
     }
 }

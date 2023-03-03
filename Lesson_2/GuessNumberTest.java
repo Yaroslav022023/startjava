@@ -4,18 +4,14 @@ public class GuessNumberTest {
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        String name;
         String answerYesNo;
 
         System.out.print("Введите имя Первого игрока: ");
-        name = scanner.nextLine();
-
-        Player player1 = new Player(name);
+        Player player1 = new Player(scanner.nextLine());
 
         System.out.print("Введите имя Второго игрока: ");
-        name = scanner.nextLine();
+        Player player2 = new Player(scanner.nextLine());
 
-        Player player2 = new Player(name);
         GuessNumber guessNumber = new GuessNumber();
 
         do {
@@ -24,11 +20,8 @@ public class GuessNumberTest {
             do {
                 do {
                     System.out.print("Введите число игрок " + player1.getName() + ": ");
-                    int numPlayer1 = scanner.nextInt();
-                    player1.setNum(numPlayer1);
-
+                    player1.setNum(scanner.nextInt());
                     guessNumber.checkNum(player1.getNum());
-
                 } while (player1.getNum() < 1 || player1.getNum() > 100);
 
                 if (guessNumber.getWinNum() == guessNumber.getComputerNum())
@@ -36,13 +29,9 @@ public class GuessNumberTest {
 
                 do {
                     System.out.print("Введите число игрок " + player2.getName() + ": ");
-                    int numPlayer2 = scanner.nextInt();
-                    player2.setNum(numPlayer2);
-
+                    player2.setNum(scanner.nextInt());
                     guessNumber.checkNum(player2.getNum());
-
                 } while (player2.getNum() < 1 || player2.getNum() > 100);
-
             } while (guessNumber.getWinNum() == 0);
 
             System.out.println("Вы победили!");
@@ -55,6 +44,8 @@ public class GuessNumberTest {
 
             guessNumber.setWinNum(0);
             guessNumber.setComputerNum(1 + (int) (Math.random() * 100));
+            player1.setNum0(0);
+            player2.setNum0(0);
 
         } while (answerYesNo.equals("no") == false);
     }

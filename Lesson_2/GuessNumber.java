@@ -6,9 +6,9 @@ public class GuessNumber {
 
     void checkNum(int playerNum) {
         if (playerNum != computerNum) {
-            if (playerNum < computerNum) {
+            if (playerNum < computerNum && playerNum > 0) {
                 System.out.println("Число " + playerNum + " меньше того, что загадал компьютер");
-            } else if (playerNum > computerNum) {
+            } else if (playerNum > computerNum && playerNum <= 100) {
                 System.out.println("Число " + playerNum + " больше того, что загадал компьютер");
             }
         } else {
