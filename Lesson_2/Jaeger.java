@@ -7,8 +7,7 @@ public class Jaeger {
     private int armor;
     private int strength;
 
-    public Jaeger() {
-    }
+    public Jaeger() {}
 
     public Jaeger(String name, int speed, float height, int weight, int armor, int strength) {
         this.name = name;
@@ -23,7 +22,7 @@ public class Jaeger {
         return name;
     }
 
-    void setName(String name) {
+    public void setName(String name) {
         this.name = name;
     }
 
@@ -31,7 +30,7 @@ public class Jaeger {
         return speed;
     }
 
-    void setSpeed(int speed) {
+    public void setSpeed(int speed) {
         this.speed = speed;
     }
 
@@ -39,7 +38,7 @@ public class Jaeger {
         return height;
     }
 
-    void setHeight(float height) {
+    public void setHeight(float height) {
         this.height = height;
     }
 
@@ -47,7 +46,7 @@ public class Jaeger {
         return weight;
     }
 
-    void setWeight(int weight) {
+    public void setWeight(int weight) {
         this.weight = weight;
     }
 
@@ -55,7 +54,7 @@ public class Jaeger {
         return armor;
     }
 
-    void setArmor(int armor) {
+    public void setArmor(int armor) {
         this.armor = armor;
     }
 
@@ -63,13 +62,8 @@ public class Jaeger {
         return strength;
     }
 
-    void setStrength(int strength) {
+    public void setStrength(int strength) {
         this.strength = strength;
-    }
-
-    public String toString() {
-        return String.format("Name: %s \nSpeed: %d \nHeight: %f \nWeight: %d \nArmor: %d \nStrength %d",
-                name, speed, height, weight, armor, strength);
     }
 
     void move() {
@@ -90,5 +84,10 @@ public class Jaeger {
 
     boolean shoot() {
         return true;
+    }
+
+    public String toString() {
+        return String.format("Name: %s \nSpeed: %d \nHeight: %f \nWeight: %d \nArmor: %d \nStrength %d",
+                name, speed, height, weight, armor, strength);
     }
 }
