@@ -2,8 +2,7 @@ import java.util.Scanner;
 
 public class GuessNumber {
 
-    private int computerNum = 1 + (int) (Math.random() * 100);
-    private int winNum = 0;
+    private int computerNum;
     private int numPlayer;
     private Player player1;
     private Player player2;
@@ -13,68 +12,52 @@ public class GuessNumber {
         this.player2 = player2;
     }
 
-    public int getWinNum() {
-        return winNum;
-    }
-
-    void setWinNum(int winNum) {
-        this.winNum = winNum;
-    }
-
-    public int getComputerNum() {
-        return computerNum;
-    }
-
-    void setComputerNum(int computerNum) {
-        this.computerNum = computerNum;
-    }
-
-    Scanner scanner = new Scanner(System.in);
-
     void start() {
+        computerNum = (1 + (int) (Math.random() * 100));
+        Scanner scanner = new Scanner(System.in);
+
         System.out.println("Игра началась!");
 
         do {
             do {
-                System.out.print("Число угадывает игрок " + player1.toString() + ": ");
+                System.out.print("Число угадывает игрок " + player1 + ": ");
                 numPlayer = scanner.nextInt();
 
-                if (numPlayer < 1 || numPlayer > 100) {
+                if (checkNumCorrect()) {
                     System.out.println("Введите число 1-100");
                 }
-            } while (numPlayer < 1 || numPlayer > 100);
+            } while (checkNumCorrect());
 
-            checkNum();
-
-            if (winNum == computerNum)
+            if (checkNumWin())
                 break;
 
             do {
-                System.out.print("Число угадывает игрок " + player2.toString() + ": ");
+                System.out.print("Число угадывает игрок " + player2 + ": ");
                 numPlayer = scanner.nextInt();
 
-                if (numPlayer < 1 || numPlayer > 100) {
+                if (checkNumCorrect()) {
                     System.out.println("Введите число 1-100");
                 }
-            } while (numPlayer < 1 || numPlayer > 100);
-
-            checkNum();
-        } while (winNum == 0);
-
-        setWinNum(0);
-        setComputerNum(1 + (int) (Math.random() * 100));
+            } while (checkNumCorrect());
+        } while (!checkNumWin());
     }
 
-    void checkNum() {
+    private boolean checkNumCorrect() {
+        boolean checkNumCorrect = numPlayer < 1 || numPlayer > 100;
+        return checkNumCorrect;
+    }
+
+    private boolean checkNumWin() {
         if (numPlayer != computerNum) {
-            if (numPlayer < computerNum && numPlayer > 0) {
+            if (numPlayer < computerNum) {
                 System.out.println("Число " + numPlayer + " меньше того, что загадал компьютер");
-            } else if (numPlayer > computerNum && numPlayer <= 100) {
+            } else if (numPlayer > computerNum) {
                 System.out.println("Число " + numPlayer + " больше того, что загадал компьютер");
             }
+        return false;
         } else {
-            winNum = computerNum;
             System.out.println("Вы победили!");
+        return true;
         }
     }
 }

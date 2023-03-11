@@ -8,20 +8,14 @@ public class CalculatorTest {
         String answerYesNo;
 
         do {
-            do {
-                System.out.print("Введите первое число: ");
-                calculator.setNum(scanner.nextInt());
+            System.out.print("Введите первое число: ");
+            calculator.setNum(scanner.nextInt());
 
-                System.out.print("Введите знак математической операции: ");
-                calculator.setAction(scanner.next().charAt(0));
+            System.out.print("Введите знак математической операции: ");
+            calculator.setAction(scanner.next().charAt(0));
 
-                System.out.print("Введите второе число: ");
-                calculator.setNum2(scanner.nextInt());
-
-                if (calculator.calculate() == 01) {
-                    System.out.println("Операция не распознана. Повторите ввод.");
-                }
-            } while (calculator.calculate() == 01);
+            System.out.print("Введите второе число: ");
+            calculator.setNum2(scanner.nextInt());
 
             System.out.println(calculator.calculate());
             scanner.nextLine();
