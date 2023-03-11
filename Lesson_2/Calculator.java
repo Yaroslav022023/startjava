@@ -35,7 +35,7 @@ public class Calculator {
             case '%':
                 return num % num2;
             default:
-                return 00;
+                return 0;
         }
     }
 }
