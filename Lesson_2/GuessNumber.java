@@ -3,7 +3,6 @@ import java.util.Scanner;
 public class GuessNumber {
 
     private int secretNum;
-    private int numPlayer;
     private Player player1;
     private Player player2;
 
@@ -21,43 +20,36 @@ public class GuessNumber {
         do {
             do {
                 System.out.print("Число угадывает игрок " + player1 + ": ");
-                player1.setNumPlayer(scanner.nextInt());
-                numPlayer = player1.getNumPlayer();
+                player1.setNum(scanner.nextInt());
+            } while (isValidNum(player1.getNum()));
 
-                if (isValidNum()) {
-                    System.out.println("Введите число 1-100");
-                }
-            } while (isValidNum());
-
-            if (isGuessed())
+            if (isGuessed(player1.getNum()))
                 break;
 
             do {
                 System.out.print("Число угадывает игрок " + player2 + ": ");
-                player2.setNumPlayer(scanner.nextInt());
-                numPlayer = player2.getNumPlayer();
-
-                if (isValidNum()) {
-                    System.out.println("Введите число 1-100");
-                }
-            } while (isValidNum());
-        } while (!isGuessed());
+                player2.setNum(scanner.nextInt());
+            } while (isValidNum(player2.getNum()));
+        } while (!isGuessed(player2.getNum()));
     }
 
-    private boolean isValidNum() {
-        return numPlayer < 1 || numPlayer > 100;
+    private boolean isValidNum(int numPlayer) {
+        if (numPlayer < 1 || numPlayer > 100) {
+            System.out.println("Введите число 1-100");
+            return true;
+        }
+        return false;
     }
 
-    private boolean isGuessed() {
+    private boolean isGuessed(int numPlayer) {
         if (numPlayer < secretNum) {
             System.out.println("Число " + numPlayer + " меньше того, что загадал компьютер");
-            return false;
         } else if (numPlayer > secretNum) {
             System.out.println("Число " + numPlayer + " больше того, что загадал компьютер");
-            return false;
         } else {
             System.out.println("Вы победили!");
             return true;
         }
+        return false;
     }
 }

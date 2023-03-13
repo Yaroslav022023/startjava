@@ -1,22 +1,18 @@
 public class Player {
 
     private String name;
-    private int numPlayer;
+    private int num;
 
     public Player(String name) {
         this.name = name;
     }
 
-    public String getName() {
-        return name;
+    public int getNum() {
+        return num;
     }
 
-    public int getNumPlayer() {
-        return numPlayer;
-    }
-
-    public void setNumPlayer(int numPlayer) {
-        this.numPlayer = numPlayer;
+    public void setNum(int num) {
+        this.num = num;
     }
 
     public String toString() {
