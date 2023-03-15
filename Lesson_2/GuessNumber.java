@@ -21,7 +21,7 @@ public class GuessNumber {
             do {
                 System.out.print("Число угадывает игрок " + player1 + ": ");
                 player1.setNum(scanner.nextInt());
-            } while (isValidNum(player1.getNum()));
+            } while (!isValidNum(player1.getNum()));
 
             if (isGuessed(player1.getNum()))
                 break;
@@ -29,16 +29,16 @@ public class GuessNumber {
             do {
                 System.out.print("Число угадывает игрок " + player2 + ": ");
                 player2.setNum(scanner.nextInt());
-            } while (isValidNum(player2.getNum()));
+            } while (!isValidNum(player2.getNum()));
         } while (!isGuessed(player2.getNum()));
     }
 
     private boolean isValidNum(int numPlayer) {
         if (numPlayer < 1 || numPlayer > 100) {
             System.out.println("Введите число 1-100");
-            return true;
+            return false;
         }
-        return false;
+        return true;
     }
 
     private boolean isGuessed(int numPlayer) {
@@ -47,7 +47,11 @@ public class GuessNumber {
         } else if (numPlayer > secretNum) {
             System.out.println("Число " + numPlayer + " больше того, что загадал компьютер");
         } else {
-            System.out.println("Вы победили!");
+            if (player1.getNum() == secretNum) {
+                System.out.println("Вы победили, " + player1 + "!");
+            } else {
+                System.out.println("Вы победили, " + player2 + "!");
+            }
             return true;
         }
         return false;
