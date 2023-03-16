@@ -1,0 +1,5 @@
+/out
+*.class
+
+#MacOS files:
+*.DS_Store
