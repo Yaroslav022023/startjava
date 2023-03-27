@@ -1,5 +1,10 @@
 /out
 *.class
+/src/com/startjava/lesson_2_3_4/calculator/options
+/src/com/startjava/lesson_2_3_4/calculator/optionsj
+#Intellij IDEA
+/.idea
+*.iml
 
 #MacOS files:
 *.DS_Store
