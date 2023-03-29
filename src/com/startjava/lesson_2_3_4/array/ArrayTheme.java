@@ -7,63 +7,63 @@ public class ArrayTheme {
         System.out.println("1.Реверс значений массива:");
 
         int[] intArr = {4, 1, 5, 3, 7, 6, 2};
-        int[] intArrReverse = new int[intArr.length];
-        int indexIntArrReverse = 0;
+        int length = intArr.length;
+        int reverseIndex = length - 1;
 
-        for (int i = intArr.length - 1; i >= 0; i--) {
-            intArrReverse[indexIntArrReverse] = intArr[i];
-            indexIntArrReverse++;
+        System.out.println(Arrays.toString(intArr));
+
+        for (int i = 0; i < length - 1; i++) {
+            if (i == reverseIndex) {
+                break;
+            }
+            int tmp;
+            tmp = intArr[i];
+            intArr[i] = intArr[reverseIndex];
+            intArr[reverseIndex] = tmp;
+            reverseIndex--;
+        }
+        System.out.println(Arrays.toString(intArr));
+
+        System.out.println("\n2.Вывод произведения элементов массива:");
+
+        intArr = new int[10];
+        length = intArr.length;
+
+        for (int i = 0; i < length; i++) {
+            intArr[i] = i;
         }
 
-        for (int intArrShow : intArr) {
-            System.out.print(intArrShow + " ");
+        int result = 1;
+        for (int i = 1; i < length - 1; i++) {
+            result *= intArr[i];
+            System.out.print(intArr[i] + (i < length - 2 ? " * " : " = " + result));
         }
 
-        System.out.println();
-
-        for (int intArrReverseShow : intArrReverse) {
-            System.out.print(intArrReverseShow + " ");
-        }
-
-        System.out.println("\n\n2.Вывод произведения элементов массива:");
-
-        int[] intArr2 = new int[10];
-        int fillingIntArr2 = 0;
-
-        for (int i = 0; i < intArr2.length; i++) {
-            intArr2[i] = fillingIntArr2;
-            fillingIntArr2++;
-        }
-
-        int calculateIntArr2 = 1;
-
-        for (int i = 1; i < intArr2.length - 1; i++) {
-            calculateIntArr2 *= intArr2[i];
-            System.out.print(i < intArr2.length - 2 ? intArr2[i] + " * " : intArr2[i] + " = " + calculateIntArr2);
-        }
-
-        System.out.println("\nЧисло 0 имеет индекс " + intArr2[0] +
-                "\nЧисло 9 имеет индекс " + intArr2[intArr2.length - 1]);
+        System.out.println("\nЧисло 0 имеет индекс " + intArr[0] +
+                "\nЧисло 9 имеет индекс " + intArr[length - 1]);
 
         System.out.println("\n3.Удаление элементов массива:");
 
         float[] floatArr = new float[15];
-        ArrayTheme arrayTheme = new ArrayTheme();
+        length = floatArr.length;
 
-        for (int i = 0; i < floatArr.length; i++) {
+        for (int i = 0; i < length; i++) {
             floatArr[i] = (float) Math.random();
-            arrayTheme.outputArray(floatArr, i);
+            System.out.printf(floatArr[i] != 0.0f ? "%.3f %s" : "%5.3f %s", floatArr[i], " ");
+            System.out.print(i != length / 2 ? "" : "\n");
         }
 
         System.out.println("\n");
-        float middleNumFloatArr = floatArr[floatArr.length / 2];
+        float middleCellNum = floatArr[length / 2];
 
-        for (int i = 0; i < floatArr.length; i++) {
-            if (middleNumFloatArr < floatArr[i]) {
+        for (int i = 0; i < length; i++) {
+            if (middleCellNum < floatArr[i]) {
                 floatArr[i] = 0.0f;
             }
-            arrayTheme.outputArray(floatArr, i);
+            System.out.printf(floatArr[i] != 0.0f ? "%.3f %s" : "%5.3f %s", floatArr[i], " ");
+            System.out.print(i != length / 2 ? "" : "\n");
         }
+
         int amount0 = 0;
         for (float check0 : floatArr) {
             if (check0 == 0.0f) {
@@ -74,18 +74,17 @@ public class ArrayTheme {
 
         System.out.println("\n4.Вывод элементов массива лесенкой в обратном порядке:");
 
-        char[] charArr = new char[26];
-        char letter = 65;
+        char[] letters = new char[26];
+        length = letters.length;
 
-        for (int i = 0; i < charArr.length; i++) {
-            charArr[i] = letter;
-            letter++;
+        for (int i = 0; i < length; i++) {
+            letters[i] = (char) ('A' + i);
         }
 
-        int amountLettersInLine = charArr.length - 2;
-        for (int i = 0; i < charArr.length; i++) {
-            for (int j = charArr.length - 1; j > amountLettersInLine; j--) {
-                System.out.print(charArr[j]);
+        int amountLettersInLine = length - 2;
+        for (int i = 0; i < length; i++) {
+            for (int j = length - 1; j > amountLettersInLine; j--) {
+                System.out.print(letters[j]);
             }
             System.out.println();
             amountLettersInLine--;
@@ -93,60 +92,62 @@ public class ArrayTheme {
 
         System.out.println("\n5.Генерация уникальных чисел:");
 
-        int[] intArr3 = new int[30];
+        int[] uniqueNums = new int[30];
+        length = uniqueNums.length;
 
-        for (int i = 0; i < intArr3.length; i++) {
-            boolean equalSameNum = false;
+        for (int i = 0; i < length; i++) {
+            boolean unique = false;
             int randomNum = 0;
-            while (!equalSameNum) {
+            while (!unique) {
                 randomNum = (int) (60 + Math.random() * 40);
-                for (int equals : intArr3) {
-                    if (randomNum != equals) {
-                        equalSameNum = true;
+                for (int checkUnique : uniqueNums) {
+                    if (randomNum != checkUnique) {
+                        unique = true;
                     } else {
-                        equalSameNum = false;
+                        unique = false;
                         break;
                     }
                 }
             }
-            intArr3[i] = randomNum;
+            uniqueNums[i] = randomNum;
         }
 
-        for (int i = 0; i < intArr3.length; i++) {
-            for (int j = 0; j < intArr3.length - 1; j++) {
-                int temp;
-                if (intArr3[j] > intArr3[j + 1]) {
-                    temp = intArr3[j + 1];
-                    intArr3[j + 1] = intArr3[j];
-                    intArr3[j] = temp;
+        for (int i = 0; i < length; i++) {
+            for (int j = 0; j < length - 1; j++) {
+                if (uniqueNums[j] > uniqueNums[j + 1]) {
+                    int temp;
+                    temp = uniqueNums[j + 1];
+                    uniqueNums[j + 1] = uniqueNums[j];
+                    uniqueNums[j] = temp;
                 }
             }
         }
 
-        for (int i = 0; i < intArr3.length; i++) {
-            System.out.print(i % 10 == 0 ? "\n" + intArr3[i] + " " : intArr3[i] + " ");
+        for (int i = 0; i < length; i++) {
+            System.out.print(i % 10 == 0 ? "\n" + uniqueNums[i] + " " : uniqueNums[i] + " ");
         }
 
         System.out.println("\n\n6.Копирование не пустых строк:");
 
-        String[] stringArr = {"    ", "AA", "", "BBB", "CC", "D", "    ", "E", "FF", "G", ""};
-        int lengthStringArr = 0;
+        String[] srcStrings = {"    ", "AA", "", "BBB", "CC", "D", "    ", "E", "FF", "G", ""};
+        int countNonBlankStrings = 0;
 
-        for (String isEmpty : stringArr) {
+        for (String isEmpty : srcStrings) {
             if (!isEmpty.isBlank()) {
-                lengthStringArr++;
+                countNonBlankStrings++;
             }
         }
+        System.out.println(Arrays.toString(srcStrings));
 
-        String[] copyStringArr = new String[lengthStringArr];
+        String[] destStrings = new String[countNonBlankStrings];
         int indexStringArr = 0;
         int indexCopyStringArr = 0;
 
-        for (int i = 0; i < copyStringArr.length; i++) {
+        for (int i = 0; i < destStrings.length; i++) {
             int lenghtInsert = 0;
             boolean insertionAllow = false;
-            for (int j = indexStringArr; j < stringArr.length; j++) {
-                if (!stringArr[j].isBlank()) {
+            for (int j = indexStringArr; j < srcStrings.length; j++) {
+                if (!srcStrings[j].isBlank()) {
                     lenghtInsert++;
                     insertionAllow = true;
                 } else {
@@ -154,18 +155,13 @@ public class ArrayTheme {
                 }
             }
             if (insertionAllow) {
-                System.arraycopy(stringArr, indexStringArr, copyStringArr, indexCopyStringArr, lenghtInsert);
+                System.arraycopy(srcStrings, indexStringArr, destStrings, indexCopyStringArr, lenghtInsert);
                 indexCopyStringArr += lenghtInsert;
                 indexStringArr += lenghtInsert;
             } else {
                 indexStringArr++;
             }
         }
-        System.out.println(Arrays.toString(copyStringArr));
-    }
-
-    private void outputArray(float[] array, int i) {
-        System.out.printf(array[i] != 0.0f ? "%.3f %s" : "%5.1f %s", array[i], " ");
-        System.out.print(i != array.length / 2 ? "" : "\n");
+        System.out.println(Arrays.toString(destStrings));
     }
 }
