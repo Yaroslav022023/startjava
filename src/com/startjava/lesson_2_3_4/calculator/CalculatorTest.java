@@ -10,22 +10,17 @@ public class CalculatorTest {
         String answerYesNo;
 
         do {
-            System.out.print("Введите первое число: ");
-            calculator.setNum(scanner.nextInt());
+            System.out.print("Введите математическое выражение: ");
+            calculator.setNums(scanner.nextLine());
+            calculator.calculate();
 
-            System.out.print("Введите знак математической операции: ");
-            calculator.setAction(scanner.next().charAt(0));
+            System.out.print("Хотите продолжить вычисления? [yes/no]: ");
+            answerYesNo = scanner.nextLine();
 
-            System.out.print("Введите второе число: ");
-            calculator.setNum2(scanner.nextInt());
+            if (answerYesNo.equals("no")) {
+                break;
+            }
 
-            System.out.println(calculator.calculate());
-            scanner.nextLine();
-
-            do {
-                System.out.print("Хотите продолжить вычисления? [yes/no]: ");
-                answerYesNo = scanner.nextLine();
-            } while (!answerYesNo.equals("yes") && !answerYesNo.equals("no"));
-        } while (!answerYesNo.equals("no"));
+        } while (answerYesNo.equals("yes"));
     }
 }
