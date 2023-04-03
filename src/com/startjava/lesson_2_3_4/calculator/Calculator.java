@@ -2,25 +2,13 @@ package com.startjava.lesson_2_3_4.calculator;
 
 public class Calculator {
 
-    private double num;
-    private double num2;
-    private char[] action;
-
-    void setNums(String nums) {
-        if (nums != null) {
-            splitNums(nums);
-        }
-    }
-
-    private void splitNums(String nums) {
+    public String calculate(String nums) {
         String[] numsSplit = nums.split(" ");
-        num = Double.parseDouble(numsSplit[0]);
-        action = numsSplit[1].toCharArray();
-        num2 = Double.parseDouble(numsSplit[2]);
-    }
-
-    public void calculate() {
+        double num = Integer.parseInt(numsSplit[0]);
+        char[] action = numsSplit[1].toCharArray();
+        double num2 = Integer.parseInt(numsSplit[2]);
         double result;
+
         switch(action[0]) {
             case '+':
                 result = num + num2;
@@ -45,6 +33,6 @@ public class Calculator {
         }
 
         int integer = (int) result;
-        System.out.printf(result - integer == 0 ? "%.0f %s" : "%.3f %s", result, "\n");
+        return result - integer == 0 ? String.format("%.0f", result) : String.format("%.3f", result);
     }
 }
