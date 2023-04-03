@@ -7,15 +7,14 @@ public class ArrayTheme {
         System.out.println("1.Реверс значений массива:");
 
         int[] intArr = {4, 1, 5, 3, 7, 6, 2};
-        int length = intArr.length - 1;
+        int length = intArr.length;
 
         System.out.println(Arrays.toString(intArr));
 
         for (int i = 0; i < length; i++) {
             int tmp = intArr[i];
-            intArr[i] = intArr[length];
+            intArr[i] = intArr[--length];
             intArr[length] = tmp;
-            length--;
         }
         System.out.println(Arrays.toString(intArr));
 
@@ -45,9 +44,8 @@ public class ArrayTheme {
         for (int i = 0; i < length; i++) {
             floatArr[i] = (float) Math.random();
         }
-        ArrayTheme.outputArray(floatArr);
+        outputArray(floatArr);
 
-        System.out.println("\n");
         float middleCellNum = floatArr[length / 2];
 
         for (int i = 0; i < length; i++) {
@@ -55,29 +53,30 @@ public class ArrayTheme {
                 floatArr[i] = 0.0f;
             }
         }
-        ArrayTheme.outputArray(floatArr);
+        outputArray(floatArr);
 
         int amount0 = 0;
-        for (float check0 : floatArr) {
-            if (check0 == 0.0f) {
+        for (float currentNum : floatArr) {
+            if (currentNum == 0.0f) {
                 amount0++;
             }
         }
-        System.out.println("\nКоличество обнуленных ячеек: " + amount0);
+        System.out.println("Количество обнуленных ячеек: " + amount0);
 
         System.out.println("\n4.Вывод элементов массива лесенкой в обратном порядке:");
 
-        char[] letters = new char[26];
-        length = letters.length;
+        char[] alphabet = new char[26];
+        length = alphabet.length;
 
         for (int i = 0; i < length; i++) {
-            letters[i] = (char) ('A' + i);
+            alphabet[i] = (char) ('A' + i);
         }
 
         int amountLettersInLine = length - 2;
+
         for (int i = 0; i < length; i++) {
             for (int j = length - 1; j > amountLettersInLine; j--) {
-                System.out.print(letters[j]);
+                System.out.print(alphabet[j]);
             }
             System.out.println();
             amountLettersInLine--;
@@ -157,10 +156,11 @@ public class ArrayTheme {
         System.out.println(Arrays.toString(destStrings));
     }
 
-    private static void outputArray (float[] array) {
+    private static void outputArray(float[] array) {
         for (int i = 0; i < array.length; i++) {
             System.out.printf(array[i] != 0.0f ? "%.3f %s" : "%5.3f %s", array[i], " ");
             System.out.print(i != array.length / 2 ? "" : "\n");
         }
+        System.out.println("\n");
     }
 }
