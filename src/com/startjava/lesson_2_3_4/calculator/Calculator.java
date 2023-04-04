@@ -2,37 +2,30 @@ package com.startjava.lesson_2_3_4.calculator;
 
 public class Calculator {
 
-    public String calculate(String nums) {
-        String[] numsSplit = nums.split(" ");
-        double num = Integer.parseInt(numsSplit[0]);
-        char[] action = numsSplit[1].toCharArray();
-        double num2 = Integer.parseInt(numsSplit[2]);
-        double result;
+    public static double calculate(String mathExpression) throws NumberFormatException {
+        String[] partsExpression = mathExpression.split(" ");
+        double num = 0;
+        char action = 0;
+        double num2 = 0;
+        try {
+            num = Integer.parseInt(partsExpression[0]);
+            action = partsExpression[1].charAt(0);
+            num2 = Integer.parseInt(partsExpression[2]);
 
-        switch(action[0]) {
-            case '+':
-                result = num + num2;
-                break;
-            case '-':
-                result = num - num2;
-                break;
-            case '*':
-                result = num * num2;
-                break;
-            case '/':
-                result = num / num2;
-                break;
-            case '^':
-                result = Math.pow(num, num2);
-                break;
-            case '%':
-                result = num % num2;
-                break;
-            default:
-                result = 0;
+            if (num < 0 || num2 < 0 || partsExpression.length > 3) throw new NumberFormatException();
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println("Неккоректно введено выражение. Введите числа — целые, " +
+                    "положительные! Формат: 2 + 2");
         }
 
-        int integer = (int) result;
-        return result - integer == 0 ? String.format("%.0f", result) : String.format("%.3f", result);
+        return switch (action) {
+            case '+' -> num + num2;
+            case '-' -> num - num2;
+            case '*' -> num * num2;
+            case '/' -> num / num2;
+            case '^' -> Math.pow(num, num2);
+            case '%' -> num % num2;
+            default -> 0;
+        };
     }
 }
