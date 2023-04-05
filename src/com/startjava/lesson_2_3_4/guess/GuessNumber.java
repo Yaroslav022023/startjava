@@ -5,8 +5,9 @@ import java.util.Scanner;
 public class GuessNumber {
 
     private int secretNum;
-    private Player player1;
-    private Player player2;
+    private final Player player1;
+    private final Player player2;
+    private int currentPlayerFinished;
 
     public GuessNumber(Player player1, Player player2) {
         this.player1 = player1;
@@ -24,72 +25,57 @@ public class GuessNumber {
         do {
             do {
                 System.out.print("Число угадывает игрок " + player1 + ": ");
-                player1.setNum(scanner.nextInt());
-            } while (!isValidNum(player1.getNum()));
+            } while (!player1.addNum(scanner.nextInt()));
 
-            if (isGuessed(player1.getNum()))
+            if (isGuessed(player1.currentNum(), player1))
                 break;
+            attemptsCheck(player1);
 
             do {
                 System.out.print("Число угадывает игрок " + player2 + ": ");
-                player2.setNum(scanner.nextInt());
-            } while (!isValidNum(player2.getNum()));
-        } while (!isGuessed(player2.getNum()));
+            } while (!player2.addNum(scanner.nextInt()));
+        } while (!isGuessed(player2.currentNum(), player2) && !attemptsCheck(player2));
     }
 
-    private boolean isValidNum(int numPlayer) {
-        if (numPlayer < 1 || numPlayer > 100) {
-            System.out.println("Введите число 1-100");
-            return false;
-        }
-        return true;
-    }
-
-    private boolean isGuessed(int numPlayer) {
-        if (numPlayer < secretNum) {
-            System.out.println("Число " + numPlayer + " меньше того, что загадал компьютер");
-        } else if (numPlayer > secretNum) {
-            System.out.println("Число " + numPlayer + " больше того, что загадал компьютер");
+    private boolean isGuessed(int currentNumPlayer, Player player) {
+        if (currentNumPlayer < secretNum) {
+            System.out.println("Число " + currentNumPlayer + " меньше того, что загадал компьютер");
+        } else if (currentNumPlayer > secretNum) {
+            System.out.println("Число " + currentNumPlayer + " больше того, что загадал компьютер");
         } else {
-            if (player1.getNum() == secretNum) {
-                System.out.println("Игрок " + player1 + " угадал число " + player1.getNum() +
-                        " c " + player1.getAmountAttempts() + " попытки");
-            } else {
-                System.out.println("Игрок " + player2 + " угадал число " + player2.getNum() +
-                        " c " + player2.getAmountAttempts() + " попытки");
-            }
+            System.out.println("Игрок " + player + " угадал число " + player.currentNum() +
+                    " c " + player.getAmountAttempts() + " попытки");
 
-            allNumsPlayers(player1.getNumsArr(), player2.getNumsArr());
+            outputAllNumsPlayers(player1.getNums());
+            outputAllNumsPlayers(player2.getNums());
             return true;
-        }
-
-        if (player2.getAmountAttempts() == 10) {
-            attemptsEndedPrint(player2);
-            allNumsPlayers(player1.getNumsArr(), player2.getNumsArr());
-            return true;
-        } else if (player1.getAmountAttempts() == 10) {
-            attemptsEndedPrint(player1);
         }
         return false;
     }
 
-    private void allNumsPlayers(int[] numsPlayer1, int[] numsPlayer2) {
+    private void outputAllNumsPlayers(int[] numsPlayer1) {
         for (int currentNum : numsPlayer1) {
-            System.out.print(currentNum + " ");
-        }
-        System.out.println();
-        for (int currentNum : numsPlayer2) {
             System.out.print(currentNum + " ");
         }
         System.out.println();
     }
 
     private void restartNumsArrPlayers() {
-        player1.restartNumsArr();
-        player2.restartNumsArr();
+        player1.clear();
+        player2.clear();
+        currentPlayerFinished = 0;
     }
 
-    private void attemptsEndedPrint(Player name) {
-        System.out.println("у " + name + " закончились попытки");
+    private boolean attemptsCheck(Player player) {
+        if (player.getAmountAttempts() == 10) {
+            System.out.println("у " + player + " закончились попытки");
+            ++currentPlayerFinished;
+        }
+        if (currentPlayerFinished == 2) {
+            outputAllNumsPlayers(player1.getNums());
+            outputAllNumsPlayers(player2.getNums());
+            return true;
+        }
+        return false;
     }
 }
