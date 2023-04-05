@@ -16,7 +16,7 @@ public class CalculatorTest {
                     result = Calculator.calculate(scanner.nextLine());
                     System.out.printf(result % 1 == 0 ? "%.0f %s" : "%.3f %s", result, "\n");
                 } catch (NumberFormatException e) {
-                    System.out.println("Неккоректно введено выражение. Введите числа — целые, " +
+                    System.out.println("Некорректно введено выражение. Введите числа — целые, " +
                             "положительные! Формат: 2 + 2");
                 }
             }
