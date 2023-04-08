@@ -4,17 +4,19 @@ public class Calculator {
 
     public static double calculate(String mathExpression) {
         String[] partsExpression = mathExpression.split(" ");
-        double num = 0;
-        char action = 0;
-        double num2 = 0;
+        double num;
+        char action;
+        double num2;
 
         if (partsExpression.length == 3) {
             num = Integer.parseInt(partsExpression[0]);
             action = partsExpression[1].charAt(0);
             num2 = Integer.parseInt(partsExpression[2]);
+        } else {
+            throw new NumberFormatException();
         }
 
-        if (num < 0 || num2 < 0 || partsExpression.length != 3) throw new NumberFormatException();
+        if (num <= 0 || num2 <= 0) throw new NumberFormatException();
 
         return switch (action) {
             case '+' -> num + num2;
