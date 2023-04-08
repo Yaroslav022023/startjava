@@ -12,8 +12,12 @@ public class Player {
         this.name = name;
     }
 
-    public int currentNum() {
-        return nums[amountAttemps - 1];
+    public int getAmountAttempts() {
+        return amountAttemps;
+    }
+
+    public int[] getNums() {
+        return Arrays.copyOf(nums, amountAttemps);
     }
 
     public boolean addNum(int num) {
@@ -21,18 +25,13 @@ public class Player {
             nums[amountAttemps] = num;
             ++amountAttemps;
             return true;
-        } else {
-            System.out.println("Введите число 1-100");
-            return false;
         }
+        System.out.println("Введите число 1-100");
+        return false;
     }
 
-    public int getAmountAttempts() {
-        return amountAttemps;
-    }
-
-    public int[] getNums() {
-        return Arrays.copyOf(nums, amountAttemps);
+    public int takeCurrentNum() {
+        return nums[amountAttemps - 1];
     }
 
     public void clear() {
