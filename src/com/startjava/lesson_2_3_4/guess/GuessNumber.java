@@ -1,5 +1,6 @@
 package com.startjava.lesson_2_3_4.guess;
 
+import java.util.Arrays;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -7,38 +8,39 @@ public class GuessNumber {
 
     private int secretNum;
     private final Player[] players;
+    private final int[] quantityWins;
     private int currentPlayerFinished;
     private int rounds;
-    private int winPl1;
-    private int winPl2;
-    private int winPl3;
 
-    public GuessNumber(Player... players) {
+    public GuessNumber(String... players) {
         this.players = new Player[players.length];
-        System.arraycopy(players, 0, this.players, 0, players.length);
+
+        for (int i = 0; i < players.length; i++) {
+            this.players[i] = new Player(players[i]);
+        }
         shuffleQueue(this.players);
+        quantityWins = new int[players.length];
     }
 
     void start() {
-        secretNum = (1 + (int) (Math.random() * 100));
-        restartNumsArrPlayers();
+        secretNum = (1 + (int) (Math.random() * 10));
+        clearPlayers();
         rounds++;
 
         System.out.println("Игра началась!");
         System.out.println("У каждого игрока по 10 попыток. Всего 3 раунда! Раунд " + rounds);
 
+        boolean winner = false;
         do {
-            inputNumPlayer(players[0]);
-            if (isGuessed(players[0].takeCurrentNum(), players[0])) break;
-            attemptsCheck(players[0]);
-
-            inputNumPlayer(players[1]);
-            if (isGuessed(players[1].takeCurrentNum(), players[1])) break;
-            attemptsCheck(players[1]);
-
-            inputNumPlayer(players[2]);
-            if (isGuessed(players[2].takeCurrentNum(), players[2])) break;
-        } while (!attemptsCheck(players[2]));
+            for (Player player : players) {
+                inputNum(player);
+                if (isGuessed(player.getLastNum(), player)) {
+                    winner = true;
+                    break;
+                }
+                attemptsCheck(player);
+            }
+        } while (!winner && currentPlayerFinished != players.length);
     }
 
     private void shuffleQueue(Player[] players) {
@@ -51,38 +53,46 @@ public class GuessNumber {
         }
     }
 
-    private void restartNumsArrPlayers() {
-        players[0].clear();
-        players[1].clear();
-        players[2].clear();
+    private void clearPlayers() {
+        for (Player player : players) {
+            player.clear();
+        }
         currentPlayerFinished = 0;
 
         if(rounds == 3) {
             rounds = 0;
-            winPl1 = 0;
-            winPl2 = 0;
-            winPl3 = 0;
+            Arrays.fill(quantityWins, 0);
         }
     }
 
-    private void inputNumPlayer(Player player) {
+    private void inputNum(Player player) {
         Scanner scanner = new Scanner(System.in);
+        int inputNum;
+
         do {
             System.out.print("Число угадывает игрок " + player + ": ");
-        } while (!player.addNum(scanner.nextInt()));
+            inputNum = scanner.nextInt();
+
+            if (inputNum < 1 || inputNum > 100) {
+                System.out.println("Введите число 1-100");
+            }
+        } while (inputNum < 1 || inputNum > 100);
+
+        player.addNum(inputNum);
     }
 
     private boolean isGuessed(int currentNumPlayer, Player player) {
         if (currentNumPlayer == secretNum) {
-            System.out.println("Игрок " + player + " угадал число " + player.takeCurrentNum() +
+            System.out.println("Игрок " + player + " угадал число " + player.getLastNum() +
                     " c " + player.getAmountAttempts() + " попытки");
 
-            outputAllNumsPlayers(players[0].getNums());
-            outputAllNumsPlayers(players[1].getNums());
-            outputAllNumsPlayers(players[2].getNums());
+            for (Player each : players) {
+                outputAllNumsPlayers(each.getNums());
+            }
             winnerCheck(player);
             return true;
         }
+
         System.out.println("Число " + currentNumPlayer + (currentNumPlayer < secretNum ?
                 " меньше" : " больше") + " того, что загадал компьютер");
         return false;
@@ -104,51 +114,63 @@ public class GuessNumber {
     }
 
     private void winnerCheck(Player player) {
-        if (players[0] == player) {
-            ++winPl1;
-        } else if (players[1] == player) {
-            ++winPl2;
-        } else {
-            ++winPl3;
+        for (int i = 0; i < players.length; i++) {
+            if (players[i] == player) {
+                quantityWins[i]++;
+            }
         }
 
         if (rounds == 3) {
-            if (winPl1 > winPl2 && winPl1 > winPl3) {
-                outputWinnerCheck(players[0]);
-            } else if (winPl2 > winPl1 && winPl2 > winPl3) {
-                outputWinnerCheck(players[1]);
-            } else if (winPl3 > winPl1 && winPl3 > winPl2) {
-                outputWinnerCheck(players[2]);
-            } else if (winPl1 == winPl2 && winPl1 > winPl3) {
-                outputDrawWinnerCheck(players[0], players[1]);
-            } else if (winPl1 == winPl3 && winPl1 > winPl2) {
-                outputDrawWinnerCheck(players[0], players[2]);
-            } else if (winPl2 == winPl3 && winPl2 > winPl1) {
-                outputDrawWinnerCheck(players[1], players[2]);
+            int indexOfWinner = 0;
+            int draw = 0;
+
+            for (int i = 1; i < quantityWins.length; i++) {
+                if (quantityWins[i] > quantityWins[indexOfWinner]) {
+                    indexOfWinner = i;
+                } else if (quantityWins[indexOfWinner] == quantityWins[i] ) {
+                    draw++;
+                }
+            }
+
+            if (draw == 0 || indexOfWinner > 0) {
+                outputWinnerCheck(indexOfWinner);
             } else {
-                System.out.println("По итогам 3 раундов все 3 игрока сыграли в ничью!");
+                outputDrawWinnerCheck();
             }
         }
     }
 
     private boolean attemptsEnded() {
-        if (currentPlayerFinished == 3) {
+        if (currentPlayerFinished == players.length) {
             System.out.println("У всех игроков закончились попытки. Переходите " +
                     "к следующему раунду.");
-            outputAllNumsPlayers(players[0].getNums());
-            outputAllNumsPlayers(players[1].getNums());
-            outputAllNumsPlayers(players[2].getNums());
+            for (Player player : players) {
+                outputAllNumsPlayers(player.getNums());
+            }
             return true;
         }
         return false;
     }
 
-    private void outputWinnerCheck(Player player) {
-        System.out.println("По итогам 3 раундов победил игрок: " + player);
+    private void outputWinnerCheck(int indexOfWinner) {
+        for (Player player : players) {
+            if (player == players[indexOfWinner]) {
+                System.out.println("По итогам 3 раундов победил игрок: " + player);
+            }
+        }
     }
 
-    private void outputDrawWinnerCheck(Player player1, Player player2) {
-        System.out.println("По итогам 3 раундов - 2 игрока сыграли в ничью: " +
-                player1 + " и " + player2);
+    private void outputDrawWinnerCheck() {
+        int drawAmountPlayers = 0;
+
+        for (int i = 0; i < quantityWins.length; i++) {
+            for (int j = i + 1; j < quantityWins.length; j++) {
+                if (quantityWins[i] == quantityWins[j]) {
+                    drawAmountPlayers++;
+                }
+            }
+        }
+        System.out.printf("По итогам 3 раундов - %d игрока сыграли в ничью: " + "\n",
+                drawAmountPlayers);
     }
 }

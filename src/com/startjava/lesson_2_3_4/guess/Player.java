@@ -20,17 +20,12 @@ public class Player {
         return Arrays.copyOf(nums, amountAttemps);
     }
 
-    public boolean addNum(int num) {
-        if (num > 0 && num <= 100) {
-            nums[amountAttemps] = num;
-            ++amountAttemps;
-            return true;
-        }
-        System.out.println("Введите число 1-100");
-        return false;
+    public void addNum(int inputNum) {
+        nums[amountAttemps] = inputNum;
+        amountAttemps++;
     }
 
-    public int takeCurrentNum() {
+    public int getLastNum() {
         return nums[amountAttemps - 1];
     }
 
