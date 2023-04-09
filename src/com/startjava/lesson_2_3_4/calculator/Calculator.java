@@ -8,13 +8,13 @@ public class Calculator {
         char action;
         double num2;
 
-        if (partsExpression.length == 3) {
-            num = Integer.parseInt(partsExpression[0]);
-            action = partsExpression[1].charAt(0);
-            num2 = Integer.parseInt(partsExpression[2]);
-        } else {
+        if (partsExpression.length != 3) {
             throw new NumberFormatException();
         }
+
+        num = Integer.parseInt(partsExpression[0]);
+        action = partsExpression[1].charAt(0);
+        num2 = Integer.parseInt(partsExpression[2]);
 
         if (num <= 0 || num2 <= 0) throw new NumberFormatException();
 
