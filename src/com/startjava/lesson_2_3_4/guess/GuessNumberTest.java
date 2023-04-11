@@ -6,11 +6,11 @@ public class GuessNumberTest {
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        String player1 = addNamePlayer(1);
-        String player2 = addNamePlayer(2);
-        String player3 = addNamePlayer(3);
+        String namePlayer1 = inputName(1);
+        String namePlayer2 = inputName(2);
+        String namePlayer3 = inputName(3);
 
-        GuessNumber guessNumber = new GuessNumber(player1, player2, player3);
+        GuessNumber guessNumber = new GuessNumber(namePlayer1, namePlayer2, namePlayer3);
         String answerYesNo = "yes";
 
         do {
@@ -23,9 +23,8 @@ public class GuessNumberTest {
         } while (!answerYesNo.equals("no"));
     }
 
-    private static String addNamePlayer(int numberPlayer) {
+    private static String inputName(int numberPlayer) {
         Scanner scanner = new Scanner(System.in);
-
         System.out.printf("Введите имя %d-го игрока: ", numberPlayer );
         return scanner.nextLine();
     }

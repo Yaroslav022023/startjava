@@ -5,8 +5,9 @@ import java.util.Arrays;
 public class Player {
 
     private final String name;
-    private int amountAttemps;
     private final int[] nums = new int[10];
+    private int amountAttemps;
+    private int score;
 
     public Player(String name) {
         this.name = name;
@@ -20,9 +21,25 @@ public class Player {
         return Arrays.copyOf(nums, amountAttemps);
     }
 
-    public void addNum(int inputNum) {
-        nums[amountAttemps] = inputNum;
-        amountAttemps++;
+    public boolean addNum(int inputNum) {
+        if (inputNum > 0 && inputNum <= 100) {
+            nums[amountAttemps] = inputNum;
+            amountAttemps++;
+            return true;
+        }
+        return false;
+    }
+
+    public int getScore() {
+        return score;
+    }
+
+    public void setScore() {
+        score++;
+    }
+
+    public void clearScore() {
+        score = 0;
     }
 
     public int getLastNum() {
