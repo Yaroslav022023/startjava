@@ -4,8 +4,11 @@ import java.util.Arrays;
 
 public class Player {
 
+    private static final int MAX_SIZE_NUMS = 10;
+    private static final int MIN_INPUT_NUM = 1;
+    private static final int MAX_INPUT_NUM = 100;
     private final String name;
-    private final int[] nums = new int[10];
+    private final int[] nums = new int[MAX_SIZE_NUMS];
     private int amountAttemps;
     private int score;
 
@@ -22,7 +25,7 @@ public class Player {
     }
 
     public boolean addNum(int inputNum) {
-        if (inputNum > 0 && inputNum <= 100) {
+        if (inputNum >= MIN_INPUT_NUM && inputNum <= MAX_INPUT_NUM) {
             nums[amountAttemps] = inputNum;
             amountAttemps++;
             return true;

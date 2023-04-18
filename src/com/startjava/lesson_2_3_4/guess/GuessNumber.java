@@ -5,6 +5,10 @@ import java.util.Scanner;
 
 public class GuessNumber {
 
+    private static final int MAX_ROUNDS = 3;
+    private static final int MAX_ATTEMPTS = 10;
+    private static final int MIN_INPUT_NUM = 1;
+    private static final int MAX_INPUT_NUM = 100;
     private final Player[] players;
     private int secretNum;
     private int rounds;
@@ -20,7 +24,7 @@ public class GuessNumber {
     }
 
     void start() {
-        secretNum = (1 + (int) (Math.random() * 100));
+        secretNum = (MIN_INPUT_NUM + (int) (Math.random() * MAX_INPUT_NUM));
         clearPlayers();
         rounds++;
 
@@ -36,7 +40,7 @@ public class GuessNumber {
                         outputAllNumsPlayers(currentPlayer.getNums());
                     }
                     player.setScore();
-                    if (rounds == 3) {
+                    if (rounds == MAX_ROUNDS) {
                         winnerCheck();
                     }
                     isGuessed = true;
@@ -64,7 +68,7 @@ public class GuessNumber {
         }
         currentPlayerFinished = 0;
 
-        if(rounds == 3) {
+        if(rounds == MAX_ROUNDS) {
             rounds = 0;
             for (Player player : players) {
                 player.clearScore();
@@ -83,7 +87,7 @@ public class GuessNumber {
             if (!player.addNum(inputNum)) {
                 System.out.println("Введите число 1-100");
             }
-        } while (inputNum < 1 || inputNum > 100);
+        } while (inputNum < MIN_INPUT_NUM || inputNum > MAX_INPUT_NUM);
     }
 
     private boolean checkGuessedNum(Player player) {
@@ -98,7 +102,7 @@ public class GuessNumber {
     }
 
     private void attemptsCheck(Player player) {
-        if (player.getAmountAttempts() == 10) {
+        if (player.getAmountAttempts() == MAX_ATTEMPTS) {
             System.out.println("у " + player + " закончились попытки");
             currentPlayerFinished++;
         }
@@ -138,7 +142,7 @@ public class GuessNumber {
 
     private void attemptsEnded() {
         if (currentPlayerFinished == players.length) {
-            if (rounds != 3) {
+            if (rounds != MAX_ROUNDS) {
                 System.out.println("У всех игроков закончились попытки. Переходите " +
                         "к следующему раунду.");
             } else {
