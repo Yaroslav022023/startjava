@@ -4,13 +4,17 @@ import java.util.Scanner;
 
 public class GuessNumberTest {
 
-    public static void main(String[] args) {
+    public static void main(String... args) {
         Scanner scanner = new Scanner(System.in);
-        String namePlayer1 = inputName(1);
-        String namePlayer2 = inputName(2);
-        String namePlayer3 = inputName(3);
 
-        GuessNumber guessNumber = new GuessNumber(namePlayer1, namePlayer2, namePlayer3);
+        inputName(1);
+        String name1 = scanner.nextLine();
+        inputName(2);
+        String name2 = scanner.nextLine();
+        inputName(3);
+        String name3 = scanner.nextLine();
+
+        GuessNumber guessNumber = new GuessNumber(name1, name2, name3);
         String answerYesNo = "yes";
 
         do {
@@ -23,9 +27,7 @@ public class GuessNumberTest {
         } while (!answerYesNo.equals("no"));
     }
 
-    private static String inputName(int numberPlayer) {
-        Scanner scanner = new Scanner(System.in);
-        System.out.printf("Введите имя %d-го игрока: ", numberPlayer );
-        return scanner.nextLine();
+    private static void inputName(int numberPlayer) {
+        System.out.printf("Введите имя %d-го игрока: ", numberPlayer);
     }
 }
