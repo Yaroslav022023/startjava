@@ -4,15 +4,11 @@ import java.util.Scanner;
 
 public class GuessNumberTest {
 
-    public static void main(String... args) {
+    public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-
-        inputName(1);
-        String name1 = scanner.nextLine();
-        inputName(2);
-        String name2 = scanner.nextLine();
-        inputName(3);
-        String name3 = scanner.nextLine();
+        String name1 = inputName(1);
+        String name2 = inputName(2);
+        String name3 = inputName(3);
 
         GuessNumber guessNumber = new GuessNumber(name1, name2, name3);
         String answerYesNo = "yes";
@@ -27,7 +23,9 @@ public class GuessNumberTest {
         } while (!answerYesNo.equals("no"));
     }
 
-    private static void inputName(int numberPlayer) {
+    private static String inputName(int numberPlayer) {
+        Scanner scanner = new Scanner(System.in);
         System.out.printf("Введите имя %d-го игрока: ", numberPlayer);
+        return scanner.nextLine();
     }
 }

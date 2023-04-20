@@ -5,8 +5,6 @@ import java.util.Arrays;
 public class Player {
 
     private static final int CAPACITY = 10;
-    private static final int START_RANGE = 1;
-    private static final int END_RANGE = 100;
     private final String name;
     private final int[] nums = new int[CAPACITY];
     private int amountAttemps;
@@ -21,11 +19,12 @@ public class Player {
     }
 
     public boolean addNum(int inputNum) {
-        if (inputNum >= START_RANGE && inputNum <= END_RANGE) {
+        if (inputNum >= GuessNumber.START_RANGE && inputNum <= GuessNumber.END_RANGE) {
             nums[amountAttemps] = inputNum;
             amountAttemps++;
             return true;
         }
+        System.out.println("Введите число 1-100");
         return false;
     }
 
