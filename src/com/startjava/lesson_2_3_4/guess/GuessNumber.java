@@ -11,7 +11,7 @@ public class GuessNumber {
     private static final int MAX_ATTEMPTS = 10;
     private final Player[] players;
     private int secretNum;
-    private int rounds;
+    private int currentRound;
     private int currentPlayerFinished;
 
     public GuessNumber(String... names) {
@@ -37,16 +37,19 @@ public class GuessNumber {
     void start() {
         secretNum = (START_RANGE + (int) (Math.random() * END_RANGE));
         init();
-        rounds++;
+        currentRound++;
 
         System.out.println("Игра началась!");
-        System.out.println("У каждого игрока по 10 попыток. Всего 3 раунда! Раунд " + rounds);
+        System.out.println("У каждого игрока по 10 попыток. Всего 3 раунда! Раунд " + currentRound);
 
         boolean isGuessed = false;
-        while (!isGuessed && currentPlayerFinished != players.length) {
+        while (!isGuessed && players[players.length - 1].getAmountAttempts() != MAX_ATTEMPTS) {
             if (launchGameplay()) {
                 isGuessed = true;
             }
+        }
+        for (Player player : players) {
+            outputAllNumsPlayers(player);
         }
     }
 
@@ -56,8 +59,8 @@ public class GuessNumber {
         }
         currentPlayerFinished = 0;
 
-        if(rounds == MAX_ROUNDS) {
-            rounds = 0;
+        if(currentRound == MAX_ROUNDS) {
+            currentRound = 0;
             for (Player player : players) {
                 player.clearScore();
             }
@@ -68,11 +71,8 @@ public class GuessNumber {
         for (Player player : players) {
             inputNum(player);
             if (checkGuessedNum(player)) {
-                for (Player currentPlayer : players) {
-                    outputAllNumsPlayers(currentPlayer);
-                }
                 player.upScore();
-                if (rounds == MAX_ROUNDS) {
+                if (currentRound == MAX_ROUNDS) {
                     defineWinner();
                 }
                 return true;
@@ -142,16 +142,12 @@ public class GuessNumber {
 
     private void endedAttempts() {
         if (currentPlayerFinished == players.length) {
-            if (rounds != MAX_ROUNDS) {
+            if (currentRound != MAX_ROUNDS) {
                 System.out.println("У всех игроков закончились попытки. Переходите " +
                         "к следующему раунду.");
             } else {
                 System.out.println("У всех игроков закончились попытки.");
                 defineWinner();
-            }
-
-            for (Player player : players) {
-                outputAllNumsPlayers(player);
             }
         }
     }
