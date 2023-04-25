@@ -8,13 +8,15 @@ public class GuessNumberTest {
         Scanner scanner = new Scanner(System.in);
         String name1 = inputName(scanner, 1);
         String name2 = inputName(scanner, 2);
-        String name3 = inputName(scanner, 3);
+        //String name3 = inputName(scanner, 3);
 
-        GuessNumber guessNumber = new GuessNumber(name1, name2, name3);
+        GuessNumber guessNumber = new GuessNumber(name1, name2);
         String answerYesNo = "yes";
 
         do {
             if (answerYesNo.equals("yes")) {
+                System.out.println("\nИгра началась! У каждого игрока по 10 попыток на" +
+                        " каждый раунд. Всего 3 раунда!");
                 guessNumber.start();
             }
 

@@ -12,7 +12,7 @@ public class GuessNumber {
     private final Player[] players;
     private int secretNum;
     private int currentRound;
-    private int currentPlayerFinished;
+    private boolean guessed;
 
     public GuessNumber(String... names) {
         players = new Player[names.length];
@@ -35,29 +35,29 @@ public class GuessNumber {
     }
 
     void start() {
-        secretNum = (START_RANGE + (int) (Math.random() * END_RANGE));
-        init();
-        currentRound++;
+        while (currentRound != MAX_ROUNDS) {
+            secretNum = (START_RANGE + (int) (Math.random() * END_RANGE));
+            init();
+            currentRound++;
 
-        System.out.println("Игра началась!");
-        System.out.println("У каждого игрока по 10 попыток. Всего 3 раунда! Раунд " + currentRound);
+            System.out.println("\nРаунд " + currentRound + ":");
 
-        boolean isGuessed = false;
-        while (!isGuessed && players[players.length - 1].getAmountAttempts() != MAX_ATTEMPTS) {
-            if (launchGameplay()) {
-                isGuessed = true;
+            while (!checkEndRounds()) {
+                if (launchGameplay()) {
+                    guessed = true;
+                }
             }
+            outputAllNumsPlayers();
         }
-        for (Player player : players) {
-            outputAllNumsPlayers(player);
-        }
+        defineWinner();
+        init();
     }
 
     private void init() {
         for (Player player : players) {
             player.clear();
         }
-        currentPlayerFinished = 0;
+        guessed = false;
 
         if(currentRound == MAX_ROUNDS) {
             currentRound = 0;
@@ -67,14 +67,14 @@ public class GuessNumber {
         }
     }
 
+    private boolean checkEndRounds() {
+        return guessed || players[players.length - 1].getAmountAttempts() == MAX_ATTEMPTS;
+    }
+
     private boolean launchGameplay() {
         for (Player player : players) {
             inputNum(player);
-            if (checkGuessedNum(player)) {
-                player.upScore();
-                if (currentRound == MAX_ROUNDS) {
-                    defineWinner();
-                }
+            if (isGuessed(player)) {
                 return true;
             }
             checkAttempts(player);
@@ -84,20 +84,26 @@ public class GuessNumber {
 
     private void inputNum(Player player) {
         Scanner scanner = new Scanner(System.in);
-        int enteredNum;
+        int enteredNum = 0;
 
         do {
             System.out.print("Число угадывает игрок " + player + ": ");
-            enteredNum = scanner.nextInt();
+            try {
+                enteredNum = scanner.nextInt();
+            } catch (RuntimeException e) {
+                System.out.println("Вы ввели не число :)");
+                scanner.nextLine();
+            }
         } while (!player.addNum(enteredNum));
     }
 
-    private boolean checkGuessedNum(Player player) {
+    private boolean isGuessed(Player player) {
         int lastNumPlayer = player.getLastNum();
 
         if (lastNumPlayer == secretNum) {
             System.out.println("Игрок " + player + " угадал число " + lastNumPlayer +
                     " c " + player.getAmountAttempts() + " попытки");
+            player.upScore();
             return true;
         }
         System.out.println("Число " + lastNumPlayer + (lastNumPlayer < secretNum ?
@@ -108,46 +114,49 @@ public class GuessNumber {
     private void checkAttempts(Player player) {
         if (player.getAmountAttempts() == MAX_ATTEMPTS) {
             System.out.println("у " + player + " закончились попытки");
-            currentPlayerFinished++;
         }
         endedAttempts();
     }
 
-    private void outputAllNumsPlayers(Player player) {
-        System.out.print(player + ": ");
-        for (int currentNum : player.getNums()) {
-            System.out.print(currentNum + " ");
-        }
-        System.out.println();
-    }
-
-    private void defineWinner() {
-        int indexOfWinner = 0;
-        int draw = 1;
-
-        for (int i = 1; i < players.length; i++) {
-            if (players[i].getScore() > players[indexOfWinner].getScore()) {
-                indexOfWinner = i;
-            } else if (players[indexOfWinner].getScore() == players[i].getScore()) {
-                draw++;
-            }
-        }
-
-        if (draw == 1 || indexOfWinner > 0) {
-            System.out.println("По итогам 3 раундов победил игрок: " + players[indexOfWinner]);
-        } else {
-            System.out.printf("По итогам 3 раундов - %d игрока сыграли в ничью: " + "\n", draw);
-        }
-    }
-
     private void endedAttempts() {
-        if (currentPlayerFinished == players.length) {
+        if (players[players.length - 1].getAmountAttempts() == MAX_ATTEMPTS) {
             if (currentRound != MAX_ROUNDS) {
                 System.out.println("У всех игроков закончились попытки. Переходите " +
                         "к следующему раунду.");
             } else {
-                System.out.println("У всех игроков закончились попытки.");
-                defineWinner();
+                System.out.println("У всех игроков закончились попытки");
+            }
+        }
+    }
+
+    private void outputAllNumsPlayers() {
+        for (Player player : players) {
+            System.out.print(player + ": ");
+            for (int currentNum : player.getNums()) {
+                System.out.print(currentNum + " ");
+            }
+            System.out.println();
+        }
+    }
+
+    private void defineWinner() {
+        if (currentRound == MAX_ROUNDS) {
+            int indexWinner = 0;
+            int draw = 1;
+            int winner = players[indexWinner].getScore();
+
+            for (int i = 1; i < players.length; i++) {
+                if (players[i].getScore() > winner) {
+                    indexWinner = i;
+                } else if (winner == players[i].getScore()) {
+                    draw++;
+                }
+            }
+
+            if (draw == 1 || indexWinner > 0) {
+                System.out.println("\nПо итогам 3 раундов победил игрок: " + players[indexWinner]);
+            } else {
+                System.out.printf("\nПо итогам 3 раундов - %d игрока сыграли в ничью.\n", draw);
             }
         }
     }
