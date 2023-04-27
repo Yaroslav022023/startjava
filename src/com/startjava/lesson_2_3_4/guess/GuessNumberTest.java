@@ -8,9 +8,9 @@ public class GuessNumberTest {
         Scanner scanner = new Scanner(System.in);
         String name1 = inputName(scanner, 1);
         String name2 = inputName(scanner, 2);
-        //String name3 = inputName(scanner, 3);
+        String name3 = inputName(scanner, 3);
 
-        GuessNumber guessNumber = new GuessNumber(name1, name2);
+        GuessNumber guessNumber = new GuessNumber(name1, name2, name3);
         String answerYesNo = "yes";
 
         do {
