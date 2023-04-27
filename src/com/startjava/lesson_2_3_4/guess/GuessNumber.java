@@ -68,10 +68,10 @@ public class GuessNumber {
     }
 
     private boolean checkEndRounds() {
-        return guessed || attemptsLastPlayer();
+        return guessed || checkAttemptsLastPlayer();
     }
 
-    private boolean attemptsLastPlayer() {
+    private boolean checkAttemptsLastPlayer() {
         return players[players.length - 1].getAmountAttempts() == MAX_ATTEMPTS;
     }
 
@@ -123,7 +123,7 @@ public class GuessNumber {
     }
 
     private void endedAttempts() {
-        if (attemptsLastPlayer()) {
+        if (checkAttemptsLastPlayer()) {
             if (currentRound != MAX_ROUNDS) {
                 System.out.println("У всех игроков закончились попытки. Переходите " +
                         "к следующему раунду.");
