@@ -12,7 +12,7 @@ public class BookshelfTest {
             if (bookshelf.getQuantityBooksInShelf() == 0) {
                 System.out.println("The bookshelves are empty. You can add the first book to it.");
             } else {
-                System.out.println("The bookshalf have " + bookshelf.getQuantityBooksInShelf() + " books"
+                System.out.println("The bookshelf have " + bookshelf.getQuantityBooksInShelf() + " books"
                         + " and " + bookshelf.getFreeBookshelves() + " bookshelves are free:");
                 bookshelf.displayAllBooks();
             }
@@ -22,14 +22,14 @@ public class BookshelfTest {
             try {
                 action = scanner.nextInt();
             } catch (RuntimeException e) {
-                System.out.println("Enter only numbers");
+                System.out.println("You didn't entered a number :)");
             }
             scanner.nextLine();
             switch (action) {
                 case 1 -> {
                     if (bookshelf.getFreeBookshelves() != 0) {
                         try {
-                            System.out.println("Enter the book data in the format: autor, name of book, 2023: ");
+                            System.out.println("Enter the book data in the format: author, name of book, 2023: ");
                             bookshelf.addBook(new Book(scanner.nextLine()));
                             System.out.println("The book has been added successfully.");
                         } catch (NumberFormatException e) {

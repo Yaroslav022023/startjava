@@ -7,7 +7,7 @@ public class Bookshelf {
     private static final int CAPACITY = 10;
     private final Book[] books = new Book[CAPACITY];
     private int quantityBooksInShelf;
-    private int longestNameBook;
+    private int longestTitleBook;
 
     public int getQuantityBooksInShelf() {
         return quantityBooksInShelf;
@@ -18,46 +18,46 @@ public class Bookshelf {
     }
 
     public void displayAllBooks() {
-        String dashes = "-".repeat(longestNameBook);
+        String dashes = "-".repeat(longestTitleBook);
         char verticalBar = '|';
 
         for (int i = 0; i < quantityBooksInShelf; i++) {
-            int quantitySpaces = longestNameBook - books[i].getLengthOfBook();
+            int quantitySpaces = longestTitleBook - books[i].getLengthBookData();
             String spaces = " ".repeat(quantitySpaces) + verticalBar;
 
             System.out.println(String.valueOf(verticalBar) + books[i] + spaces);
             System.out.println(verticalBar + dashes + verticalBar);
 
             if (i == quantityBooksInShelf - 1 && quantityBooksInShelf != CAPACITY) {
-                spaces = " ".repeat(longestNameBook) + verticalBar;
+                spaces = " ".repeat(longestTitleBook) + verticalBar;
                 System.out.println(verticalBar + spaces);
                 System.out.println(verticalBar + dashes + verticalBar);
             }
         }
     }
 
-    public void addBook(Book dataOfBook) {
-        books[quantityBooksInShelf] = dataOfBook;
+    public void addBook(Book bookData) {
+        books[quantityBooksInShelf] = bookData;
         quantityBooksInShelf++;
-        if (dataOfBook.getLengthOfBook() > longestNameBook) {
-            checkLongestNameBook();
+        if (bookData.getLengthBookData() > longestTitleBook) {
+            checkLongestBookData();
         }
     }
 
-    public String searchBook(String nameBook) {
+    public String searchBook(String titleBook) {
         for (int i = 0; i < quantityBooksInShelf; i++) {
-            if (nameBook.equals(books[i].getTitleBook())) {
+            if (titleBook.equals(books[i].getTitle())) {
                 return books[i].toString();
             }
         }
-        return "Entered title <" + nameBook + "> is not found";
+        return "Entered title <" + titleBook + "> is not found";
     }
 
-    public boolean deleteBook(String nameBook) {
+    public boolean deleteBook(String titleBook) {
         for (int i = 0; i < quantityBooksInShelf; i++) {
-            if (nameBook.equals(books[i].getTitleBook())) {
-                if (books[i].getLengthOfBook() == longestNameBook) {
-                    longestNameBook = 0;
+            if (titleBook.equals(books[i].getTitle())) {
+                if (books[i].getLengthBookData() == longestTitleBook) {
+                    longestTitleBook = 0;
                 }
 
                 books[i] = null;
@@ -65,8 +65,8 @@ public class Bookshelf {
                 books[quantityBooksInShelf - 1] = null;
                 quantityBooksInShelf--;
 
-                if (longestNameBook == 0) {
-                    checkLongestNameBook();
+                if (longestTitleBook == 0) {
+                    checkLongestBookData();
                 }
                 return true;
             }
@@ -77,13 +77,13 @@ public class Bookshelf {
     public void clearBooksShelf() {
         Arrays.fill(books, 0, quantityBooksInShelf, null);
         quantityBooksInShelf = 0;
-        longestNameBook = 0;
+        longestTitleBook = 0;
     }
 
-    private void checkLongestNameBook() {
+    private void checkLongestBookData() {
         for (int i = 0; i < quantityBooksInShelf; i++) {
-            if (books[i].getLengthOfBook() > longestNameBook) {
-                longestNameBook = books[i].getLengthOfBook();
+            if (books[i].getLengthBookData() > longestTitleBook) {
+                longestTitleBook = books[i].getLengthBookData();
             }
         }
     }

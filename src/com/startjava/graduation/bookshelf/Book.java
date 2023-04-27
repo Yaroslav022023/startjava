@@ -2,36 +2,34 @@ package com.startjava.graduation.bookshelf;
 
 public class Book {
 
-    private static final int QUANTITY_WORDS_FOR_BOOK_DATA = 3;
-    private static final int MISSING_SPACES = 4;
-    private final String autor;
-    private final String titleBook;
-    private final int yearOfPublication;
-    private final int lengthOfBook;
+    private static final int QUANTITY_DATA_ABOUT_BOOK = 3;
+    private final String author;
+    private final String title;
+    private final int yearPublication;
+    private final int lengthBookData;
 
-    public Book(String nameBook) {
-        String[] word = nameBook.split(", |,");
+    public Book(String bookData) {
+        String[] titleAuthorYear = bookData.split(", |,");
 
-        if (word.length != QUANTITY_WORDS_FOR_BOOK_DATA) {
+        if (titleAuthorYear.length < QUANTITY_DATA_ABOUT_BOOK) {
             throw new NumberFormatException();
         }
-        autor = word[0];
-        titleBook = word[1];
-        yearOfPublication = Integer.parseInt(word[2]);
-        lengthOfBook = autor.length() + titleBook.length()
-                + String.valueOf(yearOfPublication).length() + MISSING_SPACES;
+        author = titleAuthorYear[0];
+        title = titleAuthorYear[1];
+        yearPublication = Integer.parseInt(titleAuthorYear[2]);
+        lengthBookData = toString().length();
 
     }
 
-    public String getTitleBook() {
-        return titleBook;
+    public String getTitle() {
+        return title;
     }
 
-    public int getLengthOfBook() {
-        return lengthOfBook;
+    public int getLengthBookData() {
+        return lengthBookData;
     }
 
     public String toString() {
-        return autor + ", " + titleBook + ", " + yearOfPublication;
+        return author + ", " + title + ", " + yearPublication;
     }
 }
