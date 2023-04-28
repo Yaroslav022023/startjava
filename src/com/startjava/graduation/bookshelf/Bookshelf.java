@@ -17,7 +17,7 @@ public class Bookshelf {
         return CAPACITY - quantityBooksInShelf;
     }
 
-    public void assemblingShelfs() {
+    public void assemblingShelves() {
         String dashes = "-".repeat(longestTitle);
         char verticalBar = '|';
 

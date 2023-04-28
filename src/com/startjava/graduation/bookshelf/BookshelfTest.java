@@ -14,7 +14,7 @@ public class BookshelfTest {
             } else {
                 System.out.println("The bookshelf have " + bookshelf.getQuantityInShelf() + " books"
                         + " and " + bookshelf.getFreeShelves() + " bookshelves are free:");
-                bookshelf.assemblingShelfs();
+                bookshelf.assemblingShelves();
             }
 
             showNavigation();
