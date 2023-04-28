@@ -64,7 +64,7 @@ public class Bookshelf {
                 }
 
                 books[i] = null;
-                System.arraycopy(books, i + 1, books, i, (books.length - 1) - i);
+                System.arraycopy(books, i + 1, books, i, (quantityBooksInShelf - 1) - i);
                 books[quantityBooksInShelf - 1] = null;
                 quantityBooksInShelf--;
 
