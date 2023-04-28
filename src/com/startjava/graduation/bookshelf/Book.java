@@ -11,7 +11,7 @@ public class Book {
     public Book(String bookData) {
         String[] titleAuthorYear = bookData.split(", |,");
 
-        if (titleAuthorYear.length < QUANTITY_DATA_ABOUT_BOOK) {
+        if (titleAuthorYear.length != QUANTITY_DATA_ABOUT_BOOK) {
             throw new NumberFormatException();
         }
         author = titleAuthorYear[0];
