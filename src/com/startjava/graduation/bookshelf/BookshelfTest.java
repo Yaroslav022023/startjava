@@ -9,12 +9,12 @@ public class BookshelfTest {
         boolean quit = true;
 
         while (quit) {
-            if (bookshelf.getQuantityInShelf() == 0) {
+            if (bookshelf.getCountBooks() == 0) {
                 System.out.println("The bookshelves are empty. You can add the first book to it.");
             } else {
-                System.out.println("The bookshelf have " + bookshelf.getQuantityInShelf() + " books"
+                System.out.println("The bookshelf have " + bookshelf.getCountBooks() + " books"
                         + " and " + bookshelf.getFreeShelves() + " bookshelves are free:");
-                bookshelf.assemblingShelves();
+                displayAll(bookshelf);
             }
 
             showNavigation();
@@ -24,9 +24,26 @@ public class BookshelfTest {
         }
     }
 
-    public static void displayAll(String bookData, String shelfDesign) {
-        System.out.println(bookData);
-        System.out.println(shelfDesign);
+    public static void displayAll(Bookshelf bookshelf) {
+        int countBooks = bookshelf.getCountBooks();
+        int maxLength = bookshelf.getMaxLength();
+        Book[] books = bookshelf.getBooks();
+        String dashes = "-".repeat(bookshelf.getMaxLength());
+        char verticalBar = '|';
+
+        for (int i = 0; i < countBooks; i++) {
+            int quantitySpaces = maxLength - books[i].getLengthBookData();
+            String spaces = " ".repeat(quantitySpaces) + verticalBar;
+
+            System.out.println(String.valueOf(verticalBar) + books[i] + spaces);
+            System.out.println(verticalBar + dashes + verticalBar);
+
+            if (i == countBooks - 1 && countBooks != Bookshelf.CAPACITY) {
+                spaces = " ".repeat(maxLength) + verticalBar;
+                System.out.println(verticalBar + spaces);
+                System.out.println(verticalBar + dashes + verticalBar);
+            }
+        }
     }
 
     private static void showNavigation() {
@@ -67,7 +84,12 @@ public class BookshelfTest {
             }
             case 2 -> {
                 System.out.println("Enter the <title> of book:");
-                System.out.println(bookshelf.search(scanner.nextLine()));
+                String title = scanner.nextLine();
+                if (bookshelf.search(title) != null) {
+                    System.out.println(bookshelf.search(title));
+                } else {
+                    System.out.println("Entered title is not found.");
+                }
             }
             case 3 -> {
                 System.out.println("Enter the <title> of book for delete:");
@@ -75,7 +97,7 @@ public class BookshelfTest {
                         : "Entered title is not found.");
             }
             case 4 -> {
-                bookshelf.clearAllShelves();
+                bookshelf.clearShelves();
                 System.out.println("Bookshelf has been successfully cleaned.");
             }
             case 5 -> {

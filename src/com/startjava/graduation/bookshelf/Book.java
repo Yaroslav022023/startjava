@@ -9,14 +9,14 @@ public class Book {
     private final int lengthBookData;
 
     public Book(String bookData) {
-        String[] titleAuthorYear = bookData.split(", |,");
+        String[] dataAboutBook = bookData.split(", |,");
 
-        if (titleAuthorYear.length != QUANTITY_DATA_ABOUT_BOOK) {
+        if (dataAboutBook.length != QUANTITY_DATA_ABOUT_BOOK) {
             throw new NumberFormatException();
         }
-        author = titleAuthorYear[0];
-        title = titleAuthorYear[1];
-        yearPublication = Integer.parseInt(titleAuthorYear[2]);
+        author = dataAboutBook[0];
+        title = dataAboutBook[1];
+        yearPublication = Integer.parseInt(dataAboutBook[2]);
         lengthBookData = toString().length();
 
     }
