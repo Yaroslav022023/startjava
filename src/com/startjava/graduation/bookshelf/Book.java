@@ -2,22 +2,22 @@ package com.startjava.graduation.bookshelf;
 
 public class Book {
 
-    private static final int QUANTITY_DATA_ABOUT_BOOK = 3;
+    private static final int COUNT_CHARACTERISTICS = 3;
     private final String author;
     private final String title;
     private final int yearPublication;
-    private final int lengthBookData;
+    private final int length;
 
-    public Book(String bookData) {
-        String[] dataAboutBook = bookData.split(", |,");
+    public Book(String bookData, String errorInput) {
+        String[] characteristics = bookData.split(", |,");
 
-        if (dataAboutBook.length != QUANTITY_DATA_ABOUT_BOOK) {
-            throw new NumberFormatException();
+        if (characteristics.length != COUNT_CHARACTERISTICS) {
+            throw new NumberFormatException(errorInput);
         }
-        author = dataAboutBook[0];
-        title = dataAboutBook[1];
-        yearPublication = Integer.parseInt(dataAboutBook[2]);
-        lengthBookData = toString().length();
+        author = characteristics[0];
+        title = characteristics[1];
+        yearPublication = Integer.parseInt(characteristics[2]);
+        length = toString().length();
 
     }
 
@@ -25,8 +25,8 @@ public class Book {
         return title;
     }
 
-    public int getLengthBookData() {
-        return lengthBookData;
+    public int getLength() {
+        return length;
     }
 
     public String toString() {
