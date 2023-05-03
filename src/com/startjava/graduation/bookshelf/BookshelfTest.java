@@ -81,6 +81,18 @@ public class BookshelfTest {
         return action;
     }
 
+    private static void printMenu() {
+        System.out.println("""
+                
+                Menu:
+                1. save <author> <title> <publishYear>
+                2. search <title> of book
+                3. delete <title>
+                4. clear the bookshelf
+                5. quit
+                """);
+    }
+
     private static void save(Bookshelf bookshelf, Scanner scanner) {
         if (bookshelf.getFreeShelves() != 0) {
             System.out.println("Enter the book data in the format: author, name of book, 2023: ");
@@ -114,17 +126,5 @@ public class BookshelfTest {
     private static void clearShelves(Bookshelf bookshelf) {
         bookshelf.clearShelves();
         System.out.println("Bookshelf has been successfully cleaned.");
-    }
-
-    private static void printMenu() {
-        System.out.println("""
-                
-                Menu:
-                1. save <author> <title> <publishYear>
-                2. search <title> of book
-                3. delete <title>
-                4. clear the bookshelf
-                5. quit
-                """);
     }
 }
