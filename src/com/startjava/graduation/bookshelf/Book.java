@@ -8,17 +8,16 @@ public class Book {
     private final int yearPublication;
     private final int length;
 
-    public Book(String bookData, String errorInput) {
+    public Book(String bookData) {
         String[] characteristics = bookData.split(", |,");
 
         if (characteristics.length != COUNT_CHARACTERISTICS) {
-            throw new NumberFormatException(errorInput);
+            throw new NumberFormatException("Incorrectly entered data of the book.");
         }
         author = characteristics[0];
         title = characteristics[1];
         yearPublication = Integer.parseInt(characteristics[2]);
         length = toString().length();
-
     }
 
     public String getTitle() {
