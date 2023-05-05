@@ -39,7 +39,7 @@ public class BookshelfTest {
             String spaces = " ".repeat(amountSpaces) + '|';
             System.out.println("|" + books[i] + spaces + "\n" + dashes);
 
-            if (countBooks < Bookshelf.CAPACITY - 1) {
+            if (i == countBooks - 1 && countBooks < Bookshelf.CAPACITY) {
                 spaces = " ".repeat(maxLength) + '|';
                 System.out.println('|' + spaces + "\n" + dashes);
             }
