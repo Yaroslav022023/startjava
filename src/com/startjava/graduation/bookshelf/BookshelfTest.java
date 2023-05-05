@@ -37,7 +37,7 @@ public class BookshelfTest {
         for (int i = 0; i < countBooks; i++) {
             int amountSpaces = maxLength - books[i].getLength();
             String spaces = " ".repeat(amountSpaces) + '|';
-            System.out.println(String.valueOf('|') + books[i] + spaces + "\n" + dashes);
+            System.out.println("|" + books[i] + spaces + "\n" + dashes);
 
             if (countBooks < Bookshelf.CAPACITY - 1) {
                 spaces = " ".repeat(maxLength) + '|';
@@ -49,19 +49,20 @@ public class BookshelfTest {
     private static boolean selectAction(Bookshelf bookshelf, Scanner scanner) {
         int action = inputNumber(scanner);
 
-        boolean result = switch (action) {
+        switch (action) {
             case 1 -> save(bookshelf, scanner);
             case 2 -> search(bookshelf, scanner);
             case 3 -> delete(bookshelf, scanner);
             case 4 -> clearShelves(bookshelf);
-            case 5 -> false;
-            yield true;
-        };
+            case 5 -> {
+                return false;
+            }
+        }
 
         System.out.print("\nTo continue working press 'ENTER'");
         scanner.nextLine();
         System.out.println();
-        return result;
+        return true;
     }
 
     private static int inputNumber(Scanner scanner) {
@@ -94,7 +95,7 @@ public class BookshelfTest {
     }
 
     private static void save(Bookshelf bookshelf, Scanner scanner) {
-        if (bookshelf.getFreeShelves() != 0) {
+        if (bookshelf.getFreeShelves() > 0) {
             System.out.println("Enter the book data in the format: author, name of book, 2023: ");
             try {
                 bookshelf.save(new Book(scanner.nextLine()));
@@ -119,8 +120,7 @@ public class BookshelfTest {
 
     private static void delete(Bookshelf bookshelf, Scanner scanner) {
         System.out.println("To delete - " + TITLE_BOOK);
-        System.out.println(bookshelf.delete(scanner.nextLine()) ? DONE + "deleted."
-                : NOT_FOUND);
+        System.out.println(bookshelf.delete(scanner.nextLine()) ? DONE + "deleted." : NOT_FOUND);
     }
 
     private static void clearShelves(Bookshelf bookshelf) {
