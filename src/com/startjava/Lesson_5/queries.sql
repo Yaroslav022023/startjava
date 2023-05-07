@@ -53,13 +53,11 @@ FROM Jaegers;
 UPDATE jaegers 
 SET kaijukill = kaijukill + 1
 WHERE status = 'Not destroyed';
-
 SELECT * 
 FROM jaegers;
 
 \echo 'delete destroyed robots:'
 DELETE FROM jaegers 
 WHERE status = 'Destroyed';
-
 SELECT * 
 FROM jaegers;
