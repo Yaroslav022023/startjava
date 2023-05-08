@@ -11,9 +11,8 @@ public class BookshelfTest {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         Bookshelf bookshelf = new Bookshelf();
-        boolean quit = false;
 
-        while (!quit) {
+        do {
             if (bookshelf.getCountBooks() == 0) {
                 System.out.print("The bookshelves are empty. You can add the first book to it.");
             } else {
@@ -21,11 +20,7 @@ public class BookshelfTest {
                         + " and " + bookshelf.getFreeShelves() + " bookshelves are free:");
                 printBookshelf(bookshelf);
             }
-
-            if (!selectAction(bookshelf, scanner)) {
-                quit = true;
-            }
-        }
+        } while (selectAction(bookshelf, scanner));
     }
 
     public static void printBookshelf(Bookshelf bookshelf) {
