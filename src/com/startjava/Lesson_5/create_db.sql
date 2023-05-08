@@ -1,9 +1,9 @@
-CREATE DATABASE jaegers_data_base;
+CREATE DATABASE jaegers_db;
 
-\c jaegers_data_base;
+\c jaegers_db;
 
-CREATE TABLE jaegers(
-    jaegers_id SERIAL PRIMARY KEY,
+CREATE TABLE jaegers (
+    id SERIAL PRIMARY KEY,
     modelName VARCHAR(30),
     mark VARCHAR(6),
     height DECIMAL(4,2),
