@@ -2,8 +2,6 @@
 
 # Training Course: Java Core for Beginners
 
--------------------------------------------------------------
-
 ### Achievements:
 
 - Learned and applied the fundamentals of Java programming, including
